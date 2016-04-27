@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-	"www/handlers"
+	"github.com/hacksoc-manchester/www/handlers"
 )
 
 var assetDirectory string
