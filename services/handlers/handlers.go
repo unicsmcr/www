@@ -5,7 +5,7 @@ import (
 	"html/template"
 	"net/http"
 	"path/filepath"
-	"github.com/andreimuntean/www/services/minifier"
+	"github.com/hacksoc-manchester/www/services/minifier"
 )
 
 var templates map[string]*template.Template

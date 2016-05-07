@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-	"github.com/andreimuntean/www/services/handlers"
+	"github.com/hacksoc-manchester/www/services/handlers"
 )
 
 func main() {
