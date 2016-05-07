@@ -1,0 +1,22 @@
+{{ define "layout" }}
+<!doctype html>
+<html>
+  <head>
+    {{ template "head" . }}
+  </head>
+  <body>
+    {{ template "header" . }}
+    {{ template "content" . }}
+    {{ template "footer" . }}
+    {{ template "scripts" . }}
+  </body>
+</html>
+{{ end }}
+
+// Sets default values for optional blocks.
+{{ define "scripts" }}{{ end }}
+
+{{ define "head" }}{{ end }}
+{{ define "header" }}{{ end }}
+{{ define "content" }}{{ end }}
+{{ define "footer" }}{{ end }}

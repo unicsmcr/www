@@ -5,20 +5,14 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-	"github.com/hacksoc-manchester/www/handlers"
+	"github.com/andreimuntean/www/services/handlers"
 )
 
-var assetDirectory string
-var templateDirectory string
-
-func init() {
-	dir, _ := os.Getwd()
-	assetDirectory = filepath.Join(dir, "assets")
-	templateDirectory = filepath.Join(dir, "templates")
-}
-
 func main() {
-	if err := handlers.Execute(assetDirectory, templateDirectory); err != nil {
+	dir, _ := os.Getwd()
+	templateDirectory := filepath.Join(dir, "templates")
+	
+	if err := handlers.Execute(templateDirectory); err != nil {
 		log.Fatal(err)
 	}
 
