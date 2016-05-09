@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"os"
 	"path/filepath"
-	"github.com/hacksoc-manchester/www/services/minifier"
+	"strings"
 )
 
 var templates map[string]*template.Template
@@ -14,32 +15,37 @@ var templates map[string]*template.Template
 func Execute(templateDirectory string) error {
 	sharedDirectory := filepath.Join(templateDirectory, "shared")
 	
-	// Loads a path for every template.
-	templatePaths, err := filepath.Glob(filepath.Join(templateDirectory, "*.tmpl"))
-	
-	if err != nil {
+	if _, err := os.Stat(templateDirectory); err != nil {
 		return fmt.Errorf("Could not find template directory '%s'.", templateDirectory)		
 	}
 	
-	// Loads a path for every shared template.
-	sharedPaths, err := filepath.Glob(filepath.Join(sharedDirectory, "*.tmpl"))
-	
-	if err != nil {
+	if _, err := os.Stat(sharedDirectory); err != nil {
 		return fmt.Errorf("Could not find shared directory '%s'.", sharedDirectory)				
 	}
+	
+	// Loads a path for every template.
+	templatePaths, _ := filepath.Glob(filepath.Join(templateDirectory, "*.tmpl"))
+	
+	// Loads a path for every shared template.
+	sharedPaths, _ := filepath.Glob(filepath.Join(sharedDirectory, "*.tmpl"))
 	
 	// Loads the templates.
 	templates = make(map[string]*template.Template)
 	
 	for _, templatePath := range templatePaths {
-		t, err := minifier.ParseTemplate(append(sharedPaths, templatePath)...)
+		t, err := template.ParseFiles(append(sharedPaths, templatePath)...)
 		
 		if err != nil {
 			return err
 		}
 		
-		templates[filepath.Base(templatePath)] = t
+		name := strings.Split(filepath.Base(templatePath), ".")[0]
+		templates[name] = t
 	}
+	
+	// Makes the assets folder public.
+	fs := http.FileServer(http.Dir("assets"))
+	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
 
 	// Configures the routes.
 	http.HandleFunc("/", indexHandler)
@@ -48,5 +54,5 @@ func Execute(templateDirectory string) error {
 }
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
-	templates["index.tmpl"].ExecuteTemplate(w, "layout", nil)
+	templates["index"].ExecuteTemplate(w, "layout", nil)
 }
