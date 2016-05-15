@@ -1,8 +1,14 @@
 {{ define "head" }}
 <title>HackSoc</title>
-<link rel='stylesheet' href='assets/css/index.css' type='text/css' />
+<link rel="stylesheet" type="text/css" href="assets/css/index.css" />
 {{ end }}
 
 {{ define "content" }}
-<p>Coming Soon</p>
+  <img id="hacksoc-logo" src="assets/images/logo.png" alt="HackSoc Logo" >
+  <h1>HackSoc</h1>
+  <h2>Coming soon! Sign up to our mailing list for updates.</h2>
+  <form class="newsletter-form" action="signup">
+    <input type="text" name="email" placeholder="Email">
+    <button type="submit">Sign Up</button>
+  </form>
 {{ end }}

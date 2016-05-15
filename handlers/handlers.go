@@ -17,10 +17,8 @@ func Execute(templateDirectory string) error {
 		return fmt.Errorf("Could not find template directory '%s'.", templateDirectory)		
 	}
 	
-	// Loads a path for every template.
+	// Loads template paths.
 	templatePaths, _ := filepath.Glob(filepath.Join(templateDirectory, "*.tmpl"))
-	
-	// Loads a path for every shared template.
 	sharedPaths, _ := filepath.Glob(filepath.Join(templateDirectory, "shared/*.tmpl"))
 	
 	// Loads the templates.
