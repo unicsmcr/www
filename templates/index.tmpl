@@ -1,14 +1,33 @@
 {{ define "head" }}
-<title>HackSoc</title>
-<link rel="stylesheet" type="text/css" href="assets/css/index.css" />
+  <title>HackSoc</title>
+  <link rel="stylesheet" type="text/css" href="assets/css/index.css" />
 {{ end }}
 
+
 {{ define "content" }}
-  <img id="hacksoc-logo" src="assets/images/logo.png" alt="HackSoc Logo" >
-  <h1>HackSoc</h1>
-  <h2>Coming soon! Sign up to our mailing list for updates.</h2>
-  <form class="newsletter-form" action="signup">
-    <input type="text" name="email" placeholder="Email">
-    <button type="submit">Sign Up</button>
-  </form>
+  <nav id="mobile-menu">
+    <div class="aspect-ratio-1-1">
+      <div id="tiles">
+        {{ range .Menu }}
+          <a href="/{{ .Tag }}" style="background-image: url('/assets/images/index/{{ .Tag }}.png')">
+            <div>
+              <h2>{{ .Name }}</h2>
+            </div>
+          </a>
+        {{ end }}
+      </div>
+    </div>
+  </nav>
+  <header id="widescreen-large-header">
+    <h1>HackSoc</h1>
+    <h2>An Interesting Slogan</h2>
+    
+    {{ if .HasUpcomingEvent }}
+      <a href="">
+        {{ .EventName }}
+        <br>
+        {{ .EventDate }}
+      </a>
+    {{ end }}
+  </header>
 {{ end }}

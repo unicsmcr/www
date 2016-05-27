@@ -1,0 +1,20 @@
+/* Widescreen */
+.response {
+    padding: 30px 130px;
+}
+
+    .response p {
+        font-size: 16px;
+    }
+
+
+/* Mobile */
+@media screen and (max-width: 736px) {
+    .response {
+        padding: 30px 16px;
+    }
+
+        .response p {
+            font-size: 15px;
+        }
+}

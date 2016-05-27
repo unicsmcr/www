@@ -1,3 +1,90 @@
-#hacksoc-logo {
-    height: 250px; height: 25vh;
+/* Widescreen */
+#widescreen-header {
+    display: none;
+}
+
+#widescreen-large-header {
+    /*
+    background: url("images/overlay.png"), url("images/header.jpg");
+    background-size: auto, cover;
+    background-position: top left, center center;
+    background-repeat: repeat, no-repeat;
+    */
+    background-color: #406;
+    padding: 230px 0; padding: 28vh 0 22vh 0;
+    height: 150px; height: 25vh;
+    text-align: center;
+}
+
+    #widescreen-large-header h1 {
+        font-size: 36px;
+        line-height: 30px;
+        margin: 0 20px 20px 20px;
+        color: #fff;
+    }
+
+    #widescreen-large-header h2 {
+        font-size: 25px;
+        margin: 10px;
+        color: #fff;
+    }
+
+    #widescreen-large-header a {
+        display: inline-block;
+        margin: 20px 20px 0 20px;
+        font-size: 20px;
+        line-height: 24px;
+        color: #fff;
+    }
+
+
+#mobile-menu {
+    display: none;
+}
+
+
+/* Mobile */
+@media screen and (max-width: 736px) {
+    #widescreen-large-header {
+        display: none;
+    }
+
+
+    #mobile-menu {
+        background-color: #33004D;
+        display: inherit;
+        padding: 6% 0;
+    }
+
+
+    #tiles {
+        padding: 2%;
+    }
+
+        #tiles a {
+            display: block;
+            width: 48%;
+            height: 48%;
+            margin: 1%;
+            background-color: #609;
+            background-size: 50%;
+            background-position: 50% 30%;
+            background-repeat: no-repeat;
+            float: left;
+        }
+
+        #tiles div {
+            height: 20%;
+            top: 80%;
+            background-color: #4D0073;
+            position: relative;
+        }
+
+        #tiles h2 {
+            margin: 0;
+            padding: 2% 0 0 10%;
+            color: #fff;
+            text-align: left;
+            font-size: 16px;
+        }
 }

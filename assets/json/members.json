@@ -1,0 +1,14 @@
+{
+    "members": [
+        {
+            "id": "cristian-bodnar",
+            "name": "Cristian Bodnar",
+            "description": "Chair"
+        },
+        {
+            "id": "andrei-muntean",
+            "name": "Andrei Muntean",
+            "description": "Dev Officer"
+        }
+    ]
+}

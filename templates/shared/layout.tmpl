@@ -1,28 +1,24 @@
 {{ define "layout" }}
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Coming Soon" />
-    <meta name="robots" content="index,follow" />
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />
-    <link rel="stylesheet" type="text/css" href="assets/css/layout.css" />
-    {{ template "head" . }}
-  </head>
-  <body>
-    {{ template "header" . }}
-    {{ template "content" . }}
-    {{ template "footer" . }}
-    {{ template "scripts" . }}
-  </body>
-</html>
+  <!doctype html>
+  <html>
+    <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="description" content="Coming Soon" />
+      <meta name="robots" content="index,follow" />
+      <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />
+      <link rel="stylesheet" type="text/css" href="assets/css/layout.css" />
+      {{ template "head" . }}
+    </head>
+    <body>
+      {{ template "header" . }}
+      {{ template "content" . }}
+      {{ template "footer" . }}
+      {{ template "scripts" . }}
+    </body>
+  </html>
 {{ end }}
 
 // Sets default values for optional blocks.
+{{ define "content" }}{{ end }}
 {{ define "scripts" }}{{ end }}
-
-// TODO: the following blocks should not be optional.
-{{ define "head" }}{{ end }}
-{{ define "header" }}{{ end }}
-{{ define "footer" }}{{ end }}
