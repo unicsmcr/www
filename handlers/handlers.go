@@ -36,40 +36,8 @@ func Execute(templateDirectory string) error {
 	}
 
 	// Configures the routes.
-	http.HandleFunc("/", indexHandler)
-	http.HandleFunc("/events", eventsHandler)
+	http.HandleFunc("/", index)
+	http.HandleFunc("/events", events)
 
 	return nil
-}
-
-func eventsHandler(w http.ResponseWriter, r *http.Request) {
-	templates["events"].ExecuteTemplate(w, "layout", nil)
-}
-
-
-func indexHandler(w http.ResponseWriter, r *http.Request) {
-	var args struct {
-		HasUpcomingEvent bool
-		EventName string
-		EventDate string
-		Menu []struct {
-			Name string
-			Tag string
-		}
-	}
-	
-	args.HasUpcomingEvent = true
-	args.EventName = "GreatUniHack 2016"
-	args.EventDate = "September 16 at 5:30pm"
-	args.Menu = []struct {
-		Name string
-		Tag string
-	}{
-		{"Events", "events"},
-		{"Team", "team"},
-		{"Gallery", "gallery"},
-		{"Contact", "contact"},
-	}
-  	
-	templates["index"].ExecuteTemplate(w, "layout", &args)
 }
