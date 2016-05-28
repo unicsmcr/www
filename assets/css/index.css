@@ -11,8 +11,8 @@
     background-repeat: repeat, no-repeat;
     */
     background-color: #406;
-    padding: 230px 0; padding: 28vh 0 22vh 0;
-    height: 150px; height: 25vh;
+    padding: 372px 0; padding: 38vh 0 30.5vh 0;
+    height: 170px; height: 25vh;
     text-align: center;
 }
 
@@ -58,14 +58,16 @@
 
 
     #tiles {
-        padding: 2%;
+        width: 98vw;
+        height: 148vw;
+        padding: 1vw;
     }
 
         #tiles a {
             display: block;
-            width: 48%;
-            height: 48%;
-            margin: 1%;
+            width: 47vw;
+            height: 47vw;
+            margin: 1vw;
             background-color: #609;
             background-size: 50%;
             background-position: 50% 30%;
