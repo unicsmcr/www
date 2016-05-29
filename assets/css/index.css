@@ -60,16 +60,11 @@
     #tiles {
         padding: 1%;
     }
-    
-        .tile-row {
-            height: 33.33%;
-            width: 100%;
-        }
 
-        .tile {
+        #tiles a {
             display: inline-block;
             width: 48%;
-            height: 96%;
+            height: 32%;
             margin: 1%;
             background-color: #609;
             background-size: 50%;
@@ -77,14 +72,14 @@
             background-repeat: no-repeat;
         }
 
-        .tile div {
+        #tiles div {
             height: 20%;
             top: 80%;
             background-color: #4D0073;
             position: relative;
         }
 
-        .tile h2 {
+        #tiles h2 {
             margin: 0;
             padding: 2% 0 0 10%;
             color: #fff;
