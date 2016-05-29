@@ -36,6 +36,21 @@ section {
         font-size: 32px;
         margin: 0;
     }
+    
+
+.aspect-ratio-2-3 {
+    display: block;
+    position: relative;
+    padding-top: 150%; /* 20% padding would mean 80:20. */
+}
+
+    .aspect-ratio-2-3 > div {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+    }
 
 
 /* Widescreen */

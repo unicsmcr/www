@@ -58,35 +58,37 @@
 
 
     #tiles {
-        width: 98vw;
-        height: 148vw;
-        padding: 1vw;
+        padding: 1%;
     }
+    
+        .tile-row {
+            height: 33.33%;
+            width: 100%;
+        }
 
-        #tiles a {
-            display: block;
-            width: 47vw;
-            height: 47vw;
-            margin: 1vw;
+        .tile {
+            display: inline-block;
+            width: 48%;
+            height: 96%;
+            margin: 1%;
             background-color: #609;
             background-size: 50%;
             background-position: 50% 30%;
             background-repeat: no-repeat;
-            float: left;
         }
 
-        #tiles div {
+        .tile div {
             height: 20%;
             top: 80%;
             background-color: #4D0073;
             position: relative;
         }
 
-        #tiles h2 {
+        .tile h2 {
             margin: 0;
             padding: 2% 0 0 10%;
             color: #fff;
             text-align: left;
-            font-size: 5vw;
+            font-size: 16px; font-size: 5vw;
         }
 }
