@@ -1,14 +1,14 @@
 {{ define "head" }}
-  <title>Contact | HackSoc</title>
+  <title>{{ .Title }} | HackSoc</title>
   <link rel="stylesheet" type="text/css" href="assets/css/message.css" />
 {{ end }}
 
 
 {{ define "content" }}
-  <section id="contact">
-    <h1>Contact</h1>
+  <section id="message">
+    <h1>{{ .Title }}</h1>
     <div class="response">
-      <p>{{ . }}</p>
+      <p>{{ .Message }}</p>
     </div>
   </section>
 {{ end }}

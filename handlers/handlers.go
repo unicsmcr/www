@@ -9,6 +9,11 @@ import (
 	"strings"
 )
 
+type messageModel struct {
+	Title string
+	Message string
+}
+
 var templates map[string]*template.Template
 
 // Execute loads templates from the specified directory and configures routes.
