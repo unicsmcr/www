@@ -38,6 +38,11 @@ func Execute(templateDirectory string) error {
 	// Configures the routes.
 	http.HandleFunc("/", index)
 	http.HandleFunc("/events", events)
+	http.HandleFunc("/team", team)
+	http.HandleFunc("/gallery", gallery)
+	http.HandleFunc("/partners", partners)
+	http.HandleFunc("/newsletter", newsletter)
+	http.HandleFunc("/contact", contact)
 
 	return nil
 }

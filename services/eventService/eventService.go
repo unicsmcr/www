@@ -6,8 +6,8 @@ type Event struct {
 	Description string
 	Location string
 	Date string
-	Url string
-	ImageUrl string
+	URL string
+	ImageURL string
 	Upcoming bool
 }
 

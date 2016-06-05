@@ -1,0 +1,21 @@
+{{ define "head" }}
+  <title>Team | HackSoc</title>
+  <link rel="stylesheet" type="text/css" href="assets/css/team.css" />
+{{ end }}
+
+
+{{ define "content" }}
+  <section id="team">
+    <h1>Team</h1>
+    <div class="members">
+      {{ range . }}
+        <div class="member" style="background-image: url('assets/images/team/{{ .ID }}.small.jpg')">
+          <div>
+            <h2>{{ .Name }}</h2>
+            <p>{{ .Description }}</p>
+          </div>
+        </div>
+      {{ end }}
+    </div>
+  </section>
+{{ end }}

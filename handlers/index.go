@@ -2,7 +2,7 @@ package handlers
 
 import (
 	"net/http"
-	"www/services/eventService"	
+	"github.com/hacksoc-manchester/www/services/eventService"
 )
 
 type indexModel struct {
@@ -11,6 +11,11 @@ type indexModel struct {
 }
 
 func index(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/" {
+		errorHandler(w, r, http.StatusNotFound)
+		return
+	}
+	
 	var model indexModel
 	
 	model.Event = eventService.GetUpcomingEvent()

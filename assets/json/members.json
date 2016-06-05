@@ -1,14 +1,27 @@
-{
-    "members": [
-        {
-            "id": "cristian-bodnar",
-            "name": "Cristian Bodnar",
-            "description": "Chair"
-        },
-        {
-            "id": "andrei-muntean",
-            "name": "Andrei Muntean",
-            "description": "Dev Officer"
-        }
-    ]
-}
+[
+    {
+        "id": "cristian-bodnar",
+        "name": "Cristian Bodnar",
+        "description": "President"
+    },
+    {
+        "id": "anais-hristea",
+        "name": "Anais Hristea",
+        "description": "Vice President"
+    },
+    {
+        "id": "andrei-muntean",
+        "name": "Andrei Muntean",
+        "description": "Dev Officer"
+    },
+    {
+        "id": "geanina-hinta",
+        "name": "Geanina Hinta",
+        "description": "Committee Member"
+    },
+    {
+        "id": "sami-alabed",
+        "name": "Sami Alabed",
+        "description": "Eternal Leader"
+    }
+]

@@ -10,8 +10,8 @@
     <ul>
       {{ range . }}
         {{ if .Upcoming }}<li class="upcoming">{{ else }}<li>{{ end }}
-          <a class="event" href="{{ .Url }}">
-            <img src="{{ .ImageUrl }}">
+          <a class="event" href="{{ .URL }}">
+            <img src="{{ .ImageURL }}">
               <div class="description">
                 <h2>{{ .Name }}</h2>
                 <p class="location">{{ .Location }}</p>

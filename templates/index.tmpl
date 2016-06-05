@@ -46,7 +46,7 @@
     <h2>An Interesting Slogan</h2>
     
     {{ if .HasUpcomingEvent }}
-      <a href="">
+      <a href="{{ .Event.URL }}">
         {{ .Event.Name }}
         <br>
         {{ .Event.Date }}
