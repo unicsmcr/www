@@ -13,7 +13,7 @@ var password = os.Getenv("SENDGRID_PASSWORD")
 var emailer = sendgrid.NewSendGridClient(username, password)
 
 func emailIsValid(email string) bool {
-	result, _ := regexp.MatchString("[^ @]+@[^ @]+.[^ @]+", email)
+	result, _ := regexp.MatchString(`^[^ @]+@[^ @]+\.[^ @]+$`, email)
 	
 	return result
 }
