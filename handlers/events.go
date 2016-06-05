@@ -1,7 +1,12 @@
 package handlers
 
-import "net/http"
+import (
+	"net/http"
+	"www/services/eventService"
+)
 
 func events(w http.ResponseWriter, r *http.Request) {
-	templates["events"].ExecuteTemplate(w, "layout", nil)
+	events := eventService.GetEvents()
+	
+	templates["events"].ExecuteTemplate(w, "layout", &events)
 }

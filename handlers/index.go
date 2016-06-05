@@ -1,18 +1,19 @@
 package handlers
 
-import "net/http"
+import (
+	"net/http"
+	"www/services/eventService"	
+)
 
 type indexModel struct {
     HasUpcomingEvent bool
-    EventName string
-    EventDate string
+    Event *eventService.Event
 }
 
 func index(w http.ResponseWriter, r *http.Request) {
 	var model indexModel
 	
-	model.HasUpcomingEvent = true
-	model.EventName = "GreatUniHack 2016"
-	model.EventDate = "September 16 at 5:30pm"
+	model.Event = eventService.GetUpcomingEvent()
+	model.HasUpcomingEvent = model.Event != nil
 	templates["index"].ExecuteTemplate(w, "layout", &model)
 }

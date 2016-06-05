@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-	"github.com/hacksoc-manchester/www/handlers"
+	"www/handlers"
 )
 
 func main() {

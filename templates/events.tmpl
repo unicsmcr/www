@@ -7,5 +7,20 @@
 {{ define "content" }}
   <section id="events">
     <h1>Events</h1>
+    <ul>
+      {{ range . }}
+        {{ if .Upcoming }}<li class="upcoming">{{ else }}<li>{{ end }}
+          <a class="event" href="{{ .Url }}">
+            <img src="{{ .ImageUrl }}">
+              <div class="description">
+                <h2>{{ .Name }}</h2>
+                <p class="location">{{ .Location }}</p>
+                <p class="date">{{ .Date }}</p>
+              </div>
+            </img>
+          </a>
+        </li>
+      {{ end }}
+    </ul>
   </section>
 {{ end }}

@@ -47,9 +47,9 @@
     
     {{ if .HasUpcomingEvent }}
       <a href="">
-        {{ .EventName }}
+        {{ .Event.Name }}
         <br>
-        {{ .EventDate }}
+        {{ .Event.Date }}
       </a>
     {{ end }}
   </header>
