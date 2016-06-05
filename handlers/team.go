@@ -26,10 +26,5 @@ func init() {
 }
 
 func team(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/team" {
-		errorHandler(w, r, http.StatusNotFound)
-		return
-	}
-	
 	templates["team"].ExecuteTemplate(w, "layout", &members)
 }
