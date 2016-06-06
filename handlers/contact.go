@@ -18,18 +18,16 @@ func contact(w http.ResponseWriter, r *http.Request) {
 			templates["contact"].ExecuteTemplate(w, "layout", reCaptchaSiteKey)
 			
 		case "POST":
-			if !re.Verify(*r) {
-				const response = "Turing test failed. Please try again!"
-
-				templates["message"].ExecuteTemplate(w, "layout", messageModel{"Contact", response})
-				
-				return
+			senderName := r.PostFormValue("sender-name")
+			senderEmail := r.PostFormValue("sender-email")
+			message := r.PostFormValue("message")
+			var response string
+			
+			if re.Verify(*r) {
+				response = contactService.Send(senderName, senderEmail, message)				
+			} else {
+				response = "Turing test failed. Please try again!"
 			}
-		
-			senderName := r.FormValue("sender-name")
-			senderEmail := r.FormValue("sender-email")
-			message := r.FormValue("message")
-			response := contactService.Send(senderName, senderEmail, message)
 			
 			templates["message"].ExecuteTemplate(w, "layout", messageModel{"Contact", response})
 			
