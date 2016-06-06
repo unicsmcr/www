@@ -21,6 +21,11 @@ h2, h3, h4, h5, h6, p {
 }
 
 
+ul {
+    list-style-type: none
+}
+
+
 input {
     font-family: 'Open Sans', sans-serif;
 }

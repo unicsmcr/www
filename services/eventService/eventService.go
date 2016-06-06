@@ -22,7 +22,6 @@ func GetEvents() []*Event {
 	return events
 }
 
-
 // GetUpcomingEvents gets the upcoming events.
 func GetUpcomingEvents() []*Event {
 	var upcomingEvents []*Event

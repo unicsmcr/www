@@ -1,6 +1,7 @@
 package contactService
 
 import (
+	"errors"
 	"os"
 	"regexp"
 	"github.com/sendgrid/sendgrid-go"
@@ -37,25 +38,25 @@ func sendMessage(senderName, senderEmail, message string) error {
 	return emailer.Send(mail)
 }
 
-// Send sends an email to HackSoc. Returns the response as a string.
-func Send(senderName, senderEmail, message string) string {
-	if (!nameIsValid(senderName)) {
+// Send sends an email to HackSoc.
+func Send(senderName, senderEmail, message string) error {
+	if !nameIsValid(senderName) {
 		senderName = "Anonymous"
 	}
 	
-	if (senderEmail == "") {
+	if senderEmail == "" {
 		senderEmail = os.Getenv("NOREPLY_EMAIL")
-	} else if (!emailIsValid(senderEmail)) {
-		return "Email address \"" + senderEmail + "\" is not valid."
+	} else if !emailIsValid(senderEmail) {
+		return errors.New("Email address \"" + senderEmail + "\" is not valid.")
 	}
 	
-	if (!messageIsValid(message)) {
-		return "Please provide a message."
+	if !messageIsValid(message) {
+		return errors.New("Please provide a message.")
 	}
 	
 	if err := sendMessage(senderName, senderEmail, message); err != nil {
-		return "An unexpected error has occurred."
+		return errors.New("An unexpected error has occurred.")
 	}
 	
-	return "Your message has been received."
+	return nil
 }

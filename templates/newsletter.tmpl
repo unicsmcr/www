@@ -1,0 +1,31 @@
+{{ define "head" }}
+  <title>Newsletter | HackSoc</title>
+  <link rel="stylesheet" type="text/css" href="assets/css/newsletter.css" />
+{{ end }}
+
+
+{{ define "content" }}
+  <section id="">
+    <h1>Newsletter</h1>
+    <div class="newsletter-form">
+      <form method="post" action="newsletter">
+        <div class="subscriptions">
+          <ul>
+            <li>
+              <input type="checkbox" name="events" checked>Subscribe to events
+            </li>
+            <li>
+              <input type="checkbox" name="articles" checked>Subscribe to articles
+            </li>
+          </ul>
+        </div>
+        <div class="row">
+          <div class="user-email">
+            <input type="text" name="email" placeholder="Your Email (Optional)">
+          </div>
+          <input class="submit-button" type="submit" value="Subscribe">          
+        </div>
+      </form>
+    </div>
+  </section>
+{{ end }}

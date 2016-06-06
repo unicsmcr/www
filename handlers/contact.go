@@ -24,9 +24,15 @@ func contact(w http.ResponseWriter, r *http.Request) {
 			var response string
 			
 			if re.Verify(*r) {
-				response = contactService.Send(senderName, senderEmail, message)				
+				err := contactService.Send(senderName, senderEmail, message)
+				
+				if err == nil {
+					response = "Your message has been received."
+				} else {
+					response = err.Error()
+				}
 			} else {
-				response = "Turing test failed. Please try again!"
+				response = "Turing test failed. Please try again."
 			}
 			
 			templates["message"].ExecuteTemplate(w, "layout", messageModel{"Contact", response})
