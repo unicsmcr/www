@@ -5,13 +5,9 @@ import (
 	"os"
 	"regexp"
 	"github.com/sendgrid/sendgrid-go"
+	"github.com/sendgrid/sendgrid-go/helpers/mail"
 	"strings"
 )
-
-var contactEmail = os.Getenv("CONTACT_EMAIL")
-var username = os.Getenv("SENDGRID_USERNAME")
-var password = os.Getenv("SENDGRID_PASSWORD")
-var emailer = sendgrid.NewSendGridClient(username, password)
 
 func emailIsValid(email string) bool {
 	result, _ := regexp.MatchString(`^[^ @]+@[^ @]+\.[^ @]+$`, email)
@@ -27,15 +23,18 @@ func nameIsValid(name string) bool {
 	return len(strings.Replace(name, " ", "", -1)) > 0	
 }
 
-func sendMessage(senderName, senderEmail, message string) error {
-	mail := sendgrid.NewMail()
+func createRequest(senderName, senderEmail, message string) error {
+	from := mail.NewEmail(senderName, senderEmail)
+	subject := "Contact Form Message"
+	to := mail.NewEmail("HackSoc", os.Getenv("CONTACT_EMAIL"))
+	content := mail.NewContent("text/plain", message)
+	m := mail.NewV3MailInit(from, subject, to, content)
 	
-	mail.AddTo(contactEmail)
-	mail.SetFrom(senderEmail)
-	mail.SetSubject(senderName)
-	mail.SetText(message)
-	
-	return emailer.Send(mail)
+	request := sendgrid.GetRequest(os.Getenv("SENDGRID_API_KEY"), "/v3/mail/send", "https://api.sendgrid.com")
+	request.Method = "POST"
+	request.Body = mail.GetRequestBody(m)
+
+	return request
 }
 
 // Send sends an email to HackSoc.
@@ -53,8 +52,11 @@ func Send(senderName, senderEmail, message string) error {
 	if !messageIsValid(message) {
 		return errors.New("Please provide a message.")
 	}
+
+	request := createRequest(senderName, senderEmail, message)
+	response, err := sendgrid.API(request)
 	
-	if err := sendMessage(senderName, senderEmail, message); err != nil {
+	if err != nil || response.StatusCode != 202 {
 		return errors.New("An unexpected error has occurred.")
 	}
 	
