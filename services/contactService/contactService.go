@@ -23,7 +23,7 @@ func nameIsValid(name string) bool {
 	return len(strings.Replace(name, " ", "", -1)) > 0	
 }
 
-func createRequest(senderName, senderEmail, message string) error {
+func trySendEmail(senderName, senderEmail, message string) bool {
 	from := mail.NewEmail(senderName, senderEmail)
 	subject := "Contact Form Message"
 	to := mail.NewEmail("HackSoc", os.Getenv("CONTACT_EMAIL"))
@@ -34,7 +34,9 @@ func createRequest(senderName, senderEmail, message string) error {
 	request.Method = "POST"
 	request.Body = mail.GetRequestBody(m)
 
-	return request
+	response, err := sendgrid.API(request)
+
+	return err != nil || response.StatusCode == 202
 }
 
 // Send sends an email to HackSoc.
@@ -53,10 +55,7 @@ func Send(senderName, senderEmail, message string) error {
 		return errors.New("Please provide a message.")
 	}
 
-	request := createRequest(senderName, senderEmail, message)
-	response, err := sendgrid.API(request)
-	
-	if err != nil || response.StatusCode != 202 {
+	if !trySendEmail(senderName, senderEmail, message) {
 		return errors.New("An unexpected error has occurred.")
 	}
 	
