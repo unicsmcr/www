@@ -1,8 +1,8 @@
 package newsletterService
 
 import (
-    "errors"
-    "regexp"
+	"errors"
+	"regexp"
 )
 
 func emailIsValid(email string) bool {

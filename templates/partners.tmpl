@@ -1,0 +1,18 @@
+{{ define "head" }}
+  <title>Partners | HackSoc</title>
+  <link rel="stylesheet" type="text/css" href="assets/css/partners.css" />
+{{ end }}
+
+
+{{ define "content" }}
+  <section id="partners">
+    <h1>Partners</h1>
+    <div class="sponsors">
+      {{ range . }}
+        <a href="{{ .URL }}" target="_blank">
+          <div class="sponsor" style="background-image: url('assets/images/partners/{{ .ID }}.png')"></div>
+        </a>
+      {{ end }}
+    </div>
+  </section>
+{{ end }}

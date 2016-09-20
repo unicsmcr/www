@@ -1,0 +1,29 @@
+/* Widescreen */
+.sponsors {
+    padding: 30px 130px; padding: 30px 14vw;
+    font-size: 0;
+}
+
+
+.sponsor {
+    display: inline-block;
+    width: 95%;
+    height: 70px;
+    margin: 5px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+
+/* Mobile */
+@media screen and (max-width: 736px) {
+    .sponsors {
+        padding: 30px 6px;
+    }
+
+
+    .sponsor {
+        margin: 3px;
+    }
+}
