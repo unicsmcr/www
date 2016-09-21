@@ -87,13 +87,11 @@ section {
 
 
 #widescreen-header {
-    /*
     background: url("images/overlay.png"), url("images/header.jpg");
     background-size: auto, cover;
     background-position: top left, center center;
     background-repeat: repeat, no-repeat;
-    */
-    background-color: #406;
+    box-shadow: inset 0px 0px 0px 50vh rgba(68, 0, 102, 0.4);
     padding: 160px 0 130px 0; padding: 17vh 0 14vh 0;
     text-align: center;
 }

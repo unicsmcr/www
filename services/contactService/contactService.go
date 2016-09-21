@@ -2,10 +2,10 @@ package contactService
 
 import (
 	"errors"
-	"os"
-	"regexp"
 	"github.com/sendgrid/sendgrid-go"
 	"github.com/sendgrid/sendgrid-go/helpers/mail"
+	"os"
+	"regexp"
 	"strings"
 )
 

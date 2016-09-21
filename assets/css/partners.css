@@ -4,15 +4,14 @@
     font-size: 0;
 }
 
+    .sponsors > a {
+        display: block;
+    }
+
 
 .sponsor {
-    display: inline-block;
-    width: 95%;
-    height: 70px;
+    max-width: 95%;
     margin: 5px;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
 }
 
 
