@@ -10,6 +10,11 @@
         "description": "Vice President"
     },
     {
+        "id": "miruna-pislar",
+        "name": "Miruna Pislar",
+        "description": "Event Director"
+    },
+    {
         "id": "robert-ihnatisin",
         "name": "Robert Ihnatisin",
         "description": "Event Director"
