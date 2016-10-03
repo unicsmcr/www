@@ -1,6 +1,8 @@
 package handlers
 
 import (
+	"github.com/hacksoc-manchester/www/helpers/validator"
+	"github.com/hacksoc-manchester/www/services/emailService"
 	"net/http"
 	"os"
 )
@@ -16,6 +18,7 @@ func contact(w http.ResponseWriter, r *http.Request) {
 		message := r.PostFormValue("message")
 		var response string
 
+		if reCaptcha.Verify(*r) {
 			err := contactHackSoc(senderName, senderEmail, message)
 
 			if err == nil {
