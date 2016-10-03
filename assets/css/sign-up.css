@@ -1,5 +1,5 @@
 /* Widescreen */
-.newsletter-form {
+.sign-up-form {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -106,7 +106,7 @@ form {
 
 /* Mobile */
 @media screen and (max-width: 736px) {
-    .newsletter-form {
+    .sign-up-form {
         padding: 30px 16px;
     }
 

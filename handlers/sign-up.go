@@ -9,10 +9,10 @@ import (
 	"os"
 )
 
-func newsletter(w http.ResponseWriter, r *http.Request) {
+func signUp(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
-		templates["newsletter"].ExecuteTemplate(w, "layout", reCaptchaSiteKey)
+		templates["sign-up"].ExecuteTemplate(w, "layout", reCaptchaSiteKey)
 
 	case "POST":
 		firstName := r.PostFormValue("first-name")
@@ -35,7 +35,7 @@ func newsletter(w http.ResponseWriter, r *http.Request) {
 			response = "Turing test failed. Please try again."
 		}
 
-		templates["message"].ExecuteTemplate(w, "layout", messageModel{"Newsletter", response})
+		templates["message"].ExecuteTemplate(w, "layout", messageModel{"Sign Up", response})
 
 	default:
 		errorHandler(w, r, http.StatusBadRequest)

@@ -51,7 +51,7 @@ func Execute(templateDirectory string) error {
 	http.HandleFunc("/team", team)
 	http.HandleFunc("/gallery", gallery)
 	http.HandleFunc("/partners", partners)
-	http.HandleFunc("/newsletter", newsletter)
+	http.HandleFunc("/sign-up", signUp)
 	http.HandleFunc("/contact", contact)
 	http.HandleFunc("/unsubscribe", unsubscribe)
 
