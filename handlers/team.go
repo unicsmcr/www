@@ -9,19 +9,19 @@ import (
 )
 
 var members []struct {
-	ID string
-	Name string
+	ID          string
+	Name        string
 	Description string
 }
 
 func init() {
 	path, _ := filepath.Abs("assets/json/members.json")
 	file, e := ioutil.ReadFile(path)
-	
+
 	if e != nil {
 		log.Fatal(e)
 	}
-	
+
 	json.Unmarshal(file, &members)
 }
 

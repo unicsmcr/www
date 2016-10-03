@@ -7,7 +7,7 @@ import (
 
 func emailIsValid(email string) bool {
 	result, _ := regexp.MatchString(`^[^ @]+@[^ @]+\.[^ @]+$`, email)
-	
+
 	return result
 }
 
@@ -16,7 +16,7 @@ func SubscribeToArticles(email string) error {
 	if !emailIsValid(email) {
 		return errors.New("Email address \"" + email + "\" is not valid.")
 	}
-	
+
 	return nil
 }
 
@@ -25,6 +25,6 @@ func SubscribeToEvents(email string) error {
 	if !emailIsValid(email) {
 		return errors.New("Email address \"" + email + "\" is not valid.")
 	}
-	
+
 	return nil
 }

@@ -1,13 +1,13 @@
 package handlers
 
 import (
-	"net/http"
 	"github.com/hacksoc-manchester/www/services/eventService"
+	"net/http"
 )
 
 type indexModel struct {
-    HasUpcomingEvent bool
-    Event *eventService.Event
+	HasUpcomingEvent bool
+	Event            *eventService.Event
 }
 
 func index(w http.ResponseWriter, r *http.Request) {
@@ -15,9 +15,9 @@ func index(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 		return
 	}
-	
+
 	var model indexModel
-	
+
 	model.HasUpcomingEvent = model.Event != nil
 	templates["index"].ExecuteTemplate(w, "layout", &model)
 }

@@ -3,41 +3,49 @@ package handlers
 import (
 	"net/http"
 	"os"
-	"github.com/hacksoc-manchester/www/services/contactService"
-	"github.com/haisum/recaptcha"
 )
-
-var reCaptchaSiteKey = os.Getenv("RECAPTCHA_SITE_KEY")
-var re = recaptcha.R { 
-	Secret: os.Getenv("RECAPTCHA_SECRET_KEY"),
-}
 
 func contact(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
-		case "GET":
-			templates["contact"].ExecuteTemplate(w, "layout", reCaptchaSiteKey)
-			
-		case "POST":
-			senderName := r.PostFormValue("sender-name")
-			senderEmail := r.PostFormValue("sender-email")
-			message := r.PostFormValue("message")
-			var response string
-			
-			if re.Verify(*r) {
-				err := contactService.Send(senderName, senderEmail, message)
-				
-				if err == nil {
-					response = "Your message has been received."
-				} else {
-					response = err.Error()
-				}
+	case "GET":
+		templates["contact"].ExecuteTemplate(w, "layout", reCaptchaSiteKey)
+
+	case "POST":
+		senderName := r.PostFormValue("name")
+		senderEmail := r.PostFormValue("email")
+		message := r.PostFormValue("message")
+		var response string
+
+			err := contactHackSoc(senderName, senderEmail, message)
+
+			if err == nil {
+				response = "Your message has been received."
 			} else {
-				response = "Turing test failed. Please try again."
+				response = err.Error()
 			}
-			
-			templates["message"].ExecuteTemplate(w, "layout", messageModel{"Contact", response})
-			
-		default:
-			errorHandler(w, r, http.StatusBadRequest)
+		} else {
+			response = "Turing test failed. Please try again."
+		}
+
+		templates["message"].ExecuteTemplate(w, "layout", messageModel{"Contact", response})
+
+	default:
+		errorHandler(w, r, http.StatusBadRequest)
 	}
+}
+
+func contactHackSoc(senderName, senderEmail, message string) error {
+	if !validator.IsValidName(senderName) {
+		senderName = "Anonymous"
+	}
+
+	if senderEmail == "" {
+		senderEmail = os.Getenv("NOREPLY_EMAIL")
+	}
+
+	receiverName := "HackSoc"
+	receiverEmail := os.Getenv("CONTACT_EMAIL")
+	subject := "Contact Form Message"
+
+	return emailService.Send(senderName, senderEmail, receiverName, receiverEmail, subject, message)
 }

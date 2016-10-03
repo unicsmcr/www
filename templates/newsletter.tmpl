@@ -4,22 +4,50 @@
 {{ end }}
 
 
+{{ define "scripts" }}
+  <script src="https://www.google.com/recaptcha/api.js"></script>
+  <script>
+    function toggleCheckbox(id) {
+      var checkbox = document.getElementById(id);
+      checkbox.checked = !checkbox.checked;
+    }
+  </script>
+{{ end }}
+
+
 {{ define "content" }}
   <section id="">
     <h1>Newsletter</h1>
     <div class="newsletter-form">
       <form method="post" action="newsletter">
-        <div>
-          <input type="checkbox" name="events" checked>Email me when new events happen.
-        </div>
-        <div>
-          <input type="checkbox" name="articles" checked>Email me when new articles are posted.
-        </div>
-        <div>
-          <input class="submit-button" type="submit" value="Subscribe">
-          <div class="user-email">
+        <div class="user-details">
+          <div class="user-first-name">
+            <input type="text" name="first-name" placeholder="Your First Name">
+          </div><!--
+          --><div class="user-last-name">
+            <input type="text" name="last-name" placeholder="Your Last Name">
+          </div><!--
+          --><div class="user-email">
             <input type="text" name="email" placeholder="Your Email">
           </div>
+        </div>
+        <div class="checkboxes">
+          <div class="checkbox" onclick="toggleCheckbox('event-checkbox')">
+            <input id="event-checkbox" type="checkbox" name="subscribe-to-events" checked onclick="toggleCheckbox('event-checkbox')">
+            <div>Subscribe to new events.</div>
+          </div>
+          <div class="checkbox" onclick="toggleCheckbox('article-checkbox')">
+            <input id="article-checkbox" type="checkbox" name="subscribe-to-articles" checked onclick="toggleCheckbox('article-checkbox')">
+            <div>Subscribe to new articles.</div>
+          </div>
+        </div>
+        <div class="actions">
+          <div class="g-recaptcha" data-sitekey="{{ . }}"></div>
+          <ul>
+            <li>
+              <input class="submit-button" type="submit" value="Subscribe">
+            </li>
+          </ul>
         </div>
       </form>
     </div>

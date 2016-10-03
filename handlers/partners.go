@@ -9,18 +9,18 @@ import (
 )
 
 var sponsors []struct {
-	ID string
+	ID  string
 	URL string
 }
 
 func init() {
 	path, _ := filepath.Abs("assets/json/sponsors.json")
 	file, e := ioutil.ReadFile(path)
-	
+
 	if e != nil {
 		log.Fatal(e)
 	}
-	
+
 	json.Unmarshal(file, &sponsors)
 }
 
