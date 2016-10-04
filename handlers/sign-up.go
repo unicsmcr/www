@@ -44,7 +44,7 @@ func signUp(w http.ResponseWriter, r *http.Request) {
 
 func registerUser(firstName, lastName, email string, subscribedToArticles, subscribedToEvents bool) error {
 	if !subscribedToArticles && !subscribedToEvents {
-		errors.New("Please select at least one subscription.")
+		return errors.New("Please select at least one subscription.")
 	}
 
 	err := databaseService.CreateUser(firstName, lastName, email, subscribedToArticles, subscribedToEvents)
