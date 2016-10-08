@@ -11,7 +11,7 @@ import (
 func trySendEmail(senderName, senderEmail, receiverName, receiverEmail, subject, message string) bool {
 	from := mail.NewEmail(senderName, senderEmail)
 	to := mail.NewEmail(receiverName, receiverEmail)
-	content := mail.NewContent("text/plain", message)
+	content := mail.NewContent("text/html", message)
 	m := mail.NewV3MailInit(from, subject, to, content)
 
 	request := sendgrid.GetRequest(os.Getenv("SENDGRID_API_KEY"), "/v3/mail/send", "https://api.sendgrid.com")

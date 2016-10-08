@@ -57,7 +57,10 @@ func registerUser(firstName, lastName, email string, subscribedToArticles, subsc
 	senderEmail := os.Getenv("NOREPLY_EMAIL")
 	receiverName := firstName + " " + lastName
 	subject := "Welcome to HackSoc!"
-	message := "You are now part of our mailing list. \n\nTo unsubscribe, click: " + getUnsubscribeLink(email)
+	message := `You are now part of our mailing list.
+		<br>
+		<br>
+		To unsubscribe, <a href="` + getUnsubscribeLink(email) + `">click here</a>.`
 
 	return emailService.Send(senderName, senderEmail, receiverName, email, subject, message)
 }
