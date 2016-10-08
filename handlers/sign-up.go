@@ -58,9 +58,9 @@ func registerUser(firstName, lastName, email string, subscribedToArticles, subsc
 	receiverName := firstName + " " + lastName
 	subject := "Welcome to HackSoc!"
 	message := `You are now part of our mailing list.
-	            <br>
-                    <br>
-                    To unsubscribe, <a href=\"` + getUnsubscribeLink(email) + `">click here</a>.`
+		<br>
+		<br>
+		To unsubscribe, <a href=\"` + getUnsubscribeLink(email) + `">click here</a>.`
 
 	return emailService.Send(senderName, senderEmail, receiverName, email, subject, message)
 }
