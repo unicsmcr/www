@@ -29,7 +29,7 @@ func init() {
 	db, _ = sql.Open("mysql", os.Getenv("MYSQL_CONNECTION_STRING"))
 
 	if err := db.Ping(); err != nil {
-		panic(err)
+		panic(err.Error())
 	}
 }
 
