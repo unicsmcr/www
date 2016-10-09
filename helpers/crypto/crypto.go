@@ -15,7 +15,7 @@ var block cipher.Block
 
 func init() {
 	if os.Getenv("SYMMETRIC_KEY") == "" {
-		log.Println("SYMMETRIC_KEY env unassigned. Unsubscribe link will not work!")
+		log.Println("Environment variable SYMMETRIC_KEY is not assigned")
 		return
 	}
 	var err error
