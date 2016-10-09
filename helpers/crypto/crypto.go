@@ -7,16 +7,20 @@ import (
 	"encoding/base64"
 	"errors"
 	"io"
+	"log"
 	"os"
 )
 
 var block cipher.Block
 
 func init() {
+	if os.Getenv("SYMMETRIC_KEY") == "" {
+		log.Println("SYMMETRIC_KEY env unassigned. Unsubscribe link will not work!")
+		return
+	}
 	var err error
 
 	block, err = aes.NewCipher([]byte(os.Getenv("SYMMETRIC_KEY")))
-
 	if err != nil {
 		panic(err)
 	}
