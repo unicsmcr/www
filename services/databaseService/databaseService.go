@@ -5,6 +5,7 @@ import (
 	"errors"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/hacksoc-manchester/www/helpers/validator"
+	"log"
 	"os"
 )
 
@@ -19,10 +20,16 @@ type userEntry struct {
 var db *sql.DB
 
 func init() {
+
+	if os.Getenv("MYSQL_CONNECTION_STRING") == "" {
+		log.Println("MYSQL_CONNECTION_STRING unassigned. Signing up will not work!")
+		return
+	}
+
 	db, _ = sql.Open("mysql", os.Getenv("MYSQL_CONNECTION_STRING"))
 
 	if err := db.Ping(); err != nil {
-		panic(err.Error())
+		panic(err)
 	}
 }
 
