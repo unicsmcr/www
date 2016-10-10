@@ -20,7 +20,6 @@ type userEntry struct {
 var db *sql.DB
 
 func init() {
-
 	if os.Getenv("MYSQL_CONNECTION_STRING") == "" {
 		log.Println("Environment variable MYSQL_CONNECTION_STRING is not assigned.")
 		return
