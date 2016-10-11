@@ -5,6 +5,7 @@ import (
 	"errors"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/hacksoc-manchester/www/helpers/validator"
+	"log"
 	"os"
 )
 
@@ -19,6 +20,11 @@ type userEntry struct {
 var db *sql.DB
 
 func init() {
+	if os.Getenv("MYSQL_CONNECTION_STRING") == "" {
+		log.Println("Environment variable MYSQL_CONNECTION_STRING is not assigned.")
+		return
+	}
+
 	db, _ = sql.Open("mysql", os.Getenv("MYSQL_CONNECTION_STRING"))
 
 	if err := db.Ping(); err != nil {

@@ -7,16 +7,20 @@ import (
 	"encoding/base64"
 	"errors"
 	"io"
+	"log"
 	"os"
 )
 
 var block cipher.Block
 
 func init() {
+	if os.Getenv("SYMMETRIC_KEY") == "" {
+		log.Println("Environment variable SYMMETRIC_KEY is not assigned")
+		return
+	}
 	var err error
 
 	block, err = aes.NewCipher([]byte(os.Getenv("SYMMETRIC_KEY")))
-
 	if err != nil {
 		panic(err)
 	}
