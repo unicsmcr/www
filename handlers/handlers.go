@@ -2,12 +2,16 @@ package handlers
 
 import (
 	"fmt"
-	"github.com/haisum/recaptcha"
 	"html/template"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/tdewolff/minify" //change added
+
+	"github.com/haisum/recaptcha"
 )
 
 type messageModel struct {
@@ -19,6 +23,34 @@ var templates map[string]*template.Template
 var reCaptchaSiteKey = os.Getenv("RECAPTCHA_SITE_KEY")
 var reCaptcha = recaptcha.R{
 	Secret: os.Getenv("RECAPTCHA_SECRET_KEY"),
+}
+
+//the function for the minifying
+func compileTemplates(filenames ...string) (*template.Template, error) {
+	m := minify.New()
+	m.AddFunc("text/html", html.Minify)
+
+	var tmpl *template.Template
+	for _, filename := range filenames {
+		name := filepath.Base(filename)
+		if tmpl == nil {
+			tmpl = template.New(name)
+		} else {
+			tmpl = tmpl.New(name)
+		}
+
+		b, err := ioutil.ReadFile(filename)
+		if err != nil {
+			return nil, err
+		}
+
+		mb, err := m.Bytes("text/html", b)
+		if err != nil {
+			return nil, err
+		}
+		tmpl.Parse(string(mb))
+	}
+	return tmpl, nil
 }
 
 // Execute loads templates from the specified directory and configures routes.
@@ -35,7 +67,7 @@ func Execute(templateDirectory string) error {
 	templates = make(map[string]*template.Template)
 
 	for _, templatePath := range templatePaths {
-		t, err := template.ParseFiles(append(sharedPaths, templatePath)...)
+		t, err := template.MustCompile(compileTemplates(append(sharedPaths, templatePath)...)) //change added
 
 		if err != nil {
 			return err
