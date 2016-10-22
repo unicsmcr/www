@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/tdewolff/minify"
 	"github.com/hacksoc-manchester/www/handlers"
 	"log"
 	"net/http"
