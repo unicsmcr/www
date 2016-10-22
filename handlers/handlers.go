@@ -9,7 +9,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/tdewolff/minify" //change added
+	"github.com/tdewolff/minify"
+	"github.com/tdewolff/minify/html" //change added
 
 	"github.com/haisum/recaptcha"
 )
@@ -67,12 +68,8 @@ func Execute(templateDirectory string) error {
 	templates = make(map[string]*template.Template)
 
 	for _, templatePath := range templatePaths {
-		t, err := template.MustCompile(compileTemplates(append(sharedPaths, templatePath)...)) //change added
-
-		if err != nil {
-			return err
-		}
-
+		t := template.MustCompile(compileTemplates(append(sharedPaths, templatePath)...)) //change added
+		
 		name := strings.Split(filepath.Base(templatePath), ".")[0]
 		templates[name] = t
 	}
