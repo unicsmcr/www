@@ -1,1 +1,74 @@
-.members{padding:30px 130px;padding:30px 14vw;font-size:0}.member{display:inline-block;width:200px;height:200px;margin:5px;background-size:100%}.member div{width:100%;height:30%;top:70%;background-color:rgba(0,0,0,.6);position:relative}.member h2{margin:0;padding:5px 0 0 10px;color:#fff;text-align:left;font-size:18px;overflow:hidden;height:24px;line-height:24px}.member p{margin:0;padding:5px 0 0 10px;color:#fff;text-align:left;font-size:14px;overflow:hidden;height:19px;line-height:19px}@media screen and (max-width:736px){.members{padding:30px 6px}.member{width:140px;height:140px;margin:3px}.member h2{padding:3px 0 0 5px;font-size:13px;font-weight:400;height:19px;line-height:19px}.member p{padding:0 0 0 5px;font-size:12px;height:17px;line-height:17px}}
+/* Widescreen */
+.members {
+    padding: 30px 130px; padding: 30px 14vw;
+    font-size: 0;
+}
+
+
+.member {
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    margin: 5px;
+    background-size: 100%;
+}
+
+    .member div {
+        width: 100%;
+        height: 30%;
+        top: 70%;
+        background-color: rgba(0, 0, 0, 0.6);
+        position: relative;
+    }
+
+    .member h2 {
+        margin: 0;
+        padding: 5px 0 0 10px;
+        color: #fff;
+        text-align: left;
+        font-size: 18px;
+        overflow: hidden;
+        height: 24px;
+        line-height: 24px;
+    }
+
+    .member p {
+        margin: 0;
+        padding: 5px 0 0 10px;
+        color: #fff;
+        text-align: left;
+        font-size: 14px;
+        overflow: hidden;
+        height: 19px;
+        line-height: 19px;
+    }
+
+
+/* Mobile */
+@media screen and (max-width: 736px) {
+    .members {
+        padding: 30px 6px;
+    }
+
+
+    .member {
+        width: 140px;
+        height: 140px;
+        margin: 3px;
+    }
+
+        .member h2 {
+            padding: 3px 0 0 5px;
+            font-size: 13px;
+            font-weight: 400;
+            height: 19px;
+            line-height: 19px;
+        }
+
+        .member p {
+            padding: 0 0 0 5px;
+            font-size: 12px;
+            height: 17px;
+            line-height: 17px;
+        }
+}

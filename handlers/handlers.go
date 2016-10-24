@@ -10,7 +10,8 @@ import (
 	"strings"
 
 	"github.com/tdewolff/minify"
-	"github.com/tdewolff/minify/html" //change added
+	"github.com/tdewolff/minify/css"
+	"github.com/tdewolff/minify/html"
 
 	"github.com/haisum/recaptcha"
 )
@@ -27,9 +28,9 @@ var reCaptcha = recaptcha.R{
 }
 
 //the function for the minifying
+var m = minify.New()
+
 func compileTemplates(filenames ...string) (*template.Template, error) {
-	m := minify.New()
-	m.AddFunc("text/html", html.Minify)
 
 	var tmpl *template.Template
 	for _, filename := range filenames {
@@ -54,11 +55,35 @@ func compileTemplates(filenames ...string) (*template.Template, error) {
 	return tmpl, nil
 }
 
+func minifyCSSFiles(templateDirectory string) {
+	cssFileDirectory := filepath.Join(templateDirectory, "../assets/css/")
+	cssFilePaths, _ := filepath.Glob(filepath.Join(cssFileDirectory, "*.css"))
+	for _, cssFilePath := range cssFilePaths {
+		cssFile, err := ioutil.ReadFile(cssFilePath)
+		if err != nil {
+			panic(err)
+		}
+		cssFile, err = m.Bytes("text/css", cssFile)
+		if err != nil {
+			panic(err)
+		}
+		miniCSSFilePath := filepath.Join(cssFileDirectory, "miniCss", filepath.Base(cssFilePath))
+		err = ioutil.WriteFile(miniCSSFilePath, cssFile, 0666)
+		if err != nil {
+			panic(err)
+		}
+	}
+}
+
 // Execute loads templates from the specified directory and configures routes.
 func Execute(templateDirectory string) error {
 	if _, err := os.Stat(templateDirectory); err != nil {
 		return fmt.Errorf("Could not find template directory '%s'.", templateDirectory)
 	}
+
+	//minify the css files
+	m.AddFunc("text/css", css.Minify)
+	minifyCSSFiles(templateDirectory)
 
 	// Loads template paths.
 	templatePaths, _ := filepath.Glob(filepath.Join(templateDirectory, "*.tmpl"))
@@ -67,9 +92,11 @@ func Execute(templateDirectory string) error {
 	// Loads the templates.
 	templates = make(map[string]*template.Template)
 
+	m.AddFunc("text/html", html.Minify)
+
 	for _, templatePath := range templatePaths {
-		t := template.MustCompile(compileTemplates(append(sharedPaths, templatePath)...)) //change added
-		
+		t := template.Must(compileTemplates(append(sharedPaths, templatePath)...))
+
 		name := strings.Split(filepath.Base(templatePath), ".")[0]
 		templates[name] = t
 	}
