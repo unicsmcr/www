@@ -59,18 +59,21 @@ func minifyCSSFiles(templateDirectory string) {
 	cssFileDirectory := filepath.Join(templateDirectory, "../assets/css/")
 	cssFilePaths, _ := filepath.Glob(filepath.Join(cssFileDirectory, "*.css"))
 	for _, cssFilePath := range cssFilePaths {
-		cssFile, err := ioutil.ReadFile(cssFilePath)
-		if err != nil {
-			panic(err)
-		}
-		cssFile, err = m.Bytes("text/css", cssFile)
-		if err != nil {
-			panic(err)
-		}
-		miniCSSFilePath := filepath.Join(cssFileDirectory, "miniCss", filepath.Base(cssFilePath))
-		err = ioutil.WriteFile(miniCSSFilePath, cssFile, 0666)
-		if err != nil {
-			panic(err)
+		if cssFilePath[len(cssFilePath)-8:len(cssFilePath)] != ".min.css" {
+			cssFile, err := ioutil.ReadFile(cssFilePath)
+			if err != nil {
+				panic(err)
+			}
+			cssFile, err = m.Bytes("text/css", cssFile)
+			if err != nil {
+				panic(err)
+			}
+			cssFilePathBase := filepath.Base(cssFilePath)
+			miniCSSFilePath := filepath.Join(cssFileDirectory, cssFilePathBase[0:len(cssFilePathBase)-3]) + "min.css"
+			err = ioutil.WriteFile(miniCSSFilePath, cssFile, 0666)
+			if err != nil {
+				panic(err)
+			}
 		}
 	}
 }
