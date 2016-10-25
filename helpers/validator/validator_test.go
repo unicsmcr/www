@@ -7,12 +7,12 @@ import (
 	"time"
 )
 
-type testPair struct {
+type testCase struct {
 	value  string
 	result bool
 }
 
-var testsEmail = []testPair{
+var emailTests = []testCase{
 	{randString(91) + "@" + randString(4) + "." + randString(3), true},
 	{randString(50) + "@gmail.com", true},
 	{randString(10) + "@" + randString(5) + "." + randString(3), true},
@@ -23,7 +23,7 @@ var testsEmail = []testPair{
 	{randString(100), false},
 }
 
-var testsMessage = []testPair{
+var messageTests = []testCase{
 	{randString(3999), true},
 	{randString(int(src.Int63() % 400)), true},
 	{strings.Repeat(" ", 50) + randString(1), true},
@@ -32,7 +32,7 @@ var testsMessage = []testPair{
 	{strings.Repeat(" ", 100), false},
 }
 
-var testsName = []testPair{
+var nameTests = []testCase{
 	{randString(29), true},
 	{randString(1), true},
 	{randString(1) + strings.Repeat(" ", 29), true},
@@ -42,12 +42,12 @@ var testsName = []testPair{
 }
 
 func TestIsValidEmail(t *testing.T) {
-	for _, pair := range testsEmail {
-		res := IsValidEmail(pair.value)
-		if res != pair.result {
+	for _, emailTest := range emailTests {
+		res := IsValidEmail(emailTest.value)
+		if res != emailTest.result {
 			t.Error(
-				"For", pair.value,
-				"expected result", pair.result,
+				"For", emailTest.value,
+				"expected result", emailTest.result,
 				"got", res,
 			)
 		}
@@ -55,12 +55,12 @@ func TestIsValidEmail(t *testing.T) {
 }
 
 func TestIsValidMessage(t *testing.T) {
-	for _, pair := range testsMessage {
-		res := IsValidMessage(pair.value)
-		if res != pair.result {
+	for _, messageTest := range messageTests {
+		res := IsValidMessage(messageTest.value)
+		if res != messageTest.result {
 			t.Error(
-				"For", pair.value,
-				"expected result", pair.result,
+				"For", messageTest.value,
+				"expected result", messageTest.result,
 				"got", res,
 			)
 		}
@@ -68,12 +68,12 @@ func TestIsValidMessage(t *testing.T) {
 }
 
 func TestIsValidName(t *testing.T) {
-	for _, pair := range testsName {
-		res := IsValidName(pair.value)
-		if res != pair.result {
+	for _, nameTest := range nameTests {
+		res := IsValidName(nameTest.value)
+		if res != nameTest.result {
 			t.Error(
-				"For", pair.value,
-				"expected result", pair.result,
+				"For", nameTest.value,
+				"expected result", nameTest.result,
 				"got", res,
 			)
 		}
@@ -81,7 +81,7 @@ func TestIsValidName(t *testing.T) {
 }
 
 // new source for rand func, seeding it with time.Now().UnixNano()
-// for different outputs at differents runs
+// for different outputs at different runs
 var src = rand.NewSource(time.Now().UnixNano())
 
 const (
