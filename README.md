@@ -1,1 +1,0 @@
-# HackSoc Web Application
