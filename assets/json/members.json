@@ -1,0 +1,72 @@
+[
+    {
+        "id": "cristian-bodnar",
+        "name": "Cristian Bodnar",
+        "description": "President"
+    },
+    {
+        "id": "anais-hristea",
+        "name": "Anais Hristea",
+        "description": "Vice President"
+    },
+    {
+        "id": "miruna-pislar",
+        "name": "Miruna Pislar",
+        "description": "Event Director"
+    },
+    {
+        "id": "robert-ihnatisin",
+        "name": "Robert Ihnatisin",
+        "description": "Event Director"
+    },
+    {
+        "id": "martina-catizone",
+        "name": "Martina Catizone",
+        "description": "Graphics Officer"
+    },
+    {
+        "id": "andrei-muntean",
+        "name": "Andrei Muntean",
+        "description": "Dev Officer"
+    },
+    {
+        "id": "cornelia-secelean",
+        "name": "Cornelia Secelean",
+        "description": "Hackathon Director"
+    },
+    {
+        "id": "hamza-ghani",
+        "name": "Hamza Ghani",
+        "description": "Hackathon Director"
+    },
+    {
+        "id": "mihai-bujanca",
+        "name": "Mihai Bujanca",
+        "description": "Hackathon Director"
+    },
+    {
+        "id": "dhananjay-sharma",
+        "name": "Dhananjay Sharma",
+        "description": "Hackathon Organizer"
+    },
+    {
+        "id": "igor-wodiany",
+        "name": "Igor Wodiany",
+        "description": "Hackathon Organizer"
+    },
+    {
+        "id": "julio-evega",
+        "name": "Julio EVega",
+        "description": "Hackathon Organizer"
+    },
+    {
+        "id": "preslav-venkov",
+        "name": "Preslav Venkov",
+        "description": "Hackathon Organizer"
+    },
+    {
+        "id": "sami-alabed",
+        "name": "Sami Alabed",
+        "description": "Eternal Leader"
+    }
+]
