@@ -1,0 +1,56 @@
+{{ define "head" }}
+  <title>HackSoc</title>
+  <link rel="stylesheet" type="text/css" href="assets/css/index.min.css" />
+{{ end }}
+
+
+{{ define "content" }}
+  <nav id="mobile-menu">
+    <div class="aspect-ratio-2-3">
+      <div id="tiles">
+        <a href="/events" style="background-image: url('/assets/images/index/events.png')">
+          <div>
+            <h2>Events</h2>
+          </div>
+        </a><!--
+        --><a href="/team" style="background-image: url('/assets/images/index/team.png')">
+          <div>
+            <h2>Team</h2>
+          </div>
+        </a><!--
+        --><a href="/gallery" style="background-image: url('/assets/images/index/gallery.png')">
+          <div>
+            <h2>Gallery</h2>
+          </div>
+        </a><!--
+        --><a href="/partners" style="background-image: url('/assets/images/index/partners.png')">
+          <div>
+            <h2>Partners</h2>
+          </div>
+        </a><!--
+        --><a href="/sign-up" style="background-image: url('/assets/images/index/sign-up.png')">
+          <div>
+            <h2>Sign Up</h2>
+          </div>
+        </a><!--
+        --><a href="/contact" style="background-image: url('/assets/images/index/contact.png')">
+          <div>
+            <h2>Contact</h2>
+          </div>
+        </a>
+      </div>
+    </div>
+  </nav>
+  <header id="widescreen-large-header">
+    <h1>HackSoc</h1>
+    <h2>Student-led Tech Society</h2>
+    
+    {{ if .HasUpcomingEvent }}
+      <a href="{{ .Event.URL }}">
+        {{ .Event.Name }}
+        <br>
+        {{ .Event.Date }}
+      </a>
+    {{ end }}
+  </header>
+{{ end }}
