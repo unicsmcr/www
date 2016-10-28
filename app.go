@@ -1,19 +1,11 @@
 package main
 
 import (
-<<<<<<< HEAD
-=======
 	"github.com/hacksoc-manchester/www/handlers"
->>>>>>> 98b918ba286ba79143133744c7c913ba3c2b7bdd
 	"log"
 	"net/http"
 	"os"
 	"path/filepath"
-<<<<<<< HEAD
-
-	"github.com/hacksoc-manchester/www/handlers"
-=======
->>>>>>> 98b918ba286ba79143133744c7c913ba3c2b7bdd
 )
 
 func main() {

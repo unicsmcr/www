@@ -30,18 +30,18 @@ var reCaptcha = recaptcha.R{
 //the function for the minifying
 var m = minify.New()
 
-func compileTemplates(filenames ...string) (*template.Template, error) {
+func compileTemplates(templatePaths ...string) (*template.Template, error) {
 
 	var tmpl *template.Template
-	for _, filename := range filenames {
-		name := filepath.Base(filename)
+	for _, templatePath := range templatePaths {
+		name := filepath.Base(templatePath)
 		if tmpl == nil {
 			tmpl = template.New(name)
 		} else {
 			tmpl = tmpl.New(name)
 		}
 
-		b, err := ioutil.ReadFile(filename)
+		b, err := ioutil.ReadFile(templatePath)
 		if err != nil {
 			return nil, err
 		}
@@ -59,7 +59,7 @@ func minifyCSSFiles(templateDirectory string) {
 	cssFileDirectory := filepath.Join(templateDirectory, "../assets/css/")
 	cssFilePaths, _ := filepath.Glob(filepath.Join(cssFileDirectory, "*.css"))
 	for _, cssFilePath := range cssFilePaths {
-		if cssFilePath[len(cssFilePath)-8:len(cssFilePath)] != ".min.css" {
+		if cssFilePath[len(cssFilePath)-8:] != ".min.css" {
 			cssFile, err := ioutil.ReadFile(cssFilePath)
 			if err != nil {
 				panic(err)
@@ -69,7 +69,7 @@ func minifyCSSFiles(templateDirectory string) {
 				panic(err)
 			}
 			cssFilePathBase := filepath.Base(cssFilePath)
-			miniCSSFilePath := filepath.Join(cssFileDirectory, cssFilePathBase[0:len(cssFilePathBase)-3]) + "min.css"
+			miniCSSFilePath := filepath.Join(cssFileDirectory, cssFilePathBase[:len(cssFilePathBase)-3]) + "min.css"
 			err = ioutil.WriteFile(miniCSSFilePath, cssFile, 0666)
 			if err != nil {
 				panic(err)
@@ -84,7 +84,7 @@ func Execute(templateDirectory string) error {
 		return fmt.Errorf("Could not find template directory '%s'.", templateDirectory)
 	}
 
-	//minify the css files
+	m.AddFunc("text/html", html.Minify)
 	m.AddFunc("text/css", css.Minify)
 	minifyCSSFiles(templateDirectory)
 
@@ -95,13 +95,11 @@ func Execute(templateDirectory string) error {
 	// Loads the templates.
 	templates = make(map[string]*template.Template)
 
-	m.AddFunc("text/html", html.Minify)
-
 	for _, templatePath := range templatePaths {
-		t := template.Must(compileTemplates(append(sharedPaths, templatePath)...))
+		tmpl := template.Must(compileTemplates(append(sharedPaths, templatePath)...))
 
 		name := strings.Split(filepath.Base(templatePath), ".")[0]
-		templates[name] = t
+		templates[name] = tmpl
 	}
 
 	// Configures the routes.
