@@ -2,18 +2,16 @@ package handlers
 
 import (
 	"fmt"
+	"github.com/haisum/recaptcha"
+	"github.com/tdewolff/minify"
+	"github.com/tdewolff/minify/css"
+	"github.com/tdewolff/minify/html"
 	"html/template"
 	"io/ioutil"
 	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
-
-	"github.com/tdewolff/minify"
-	"github.com/tdewolff/minify/css"
-	"github.com/tdewolff/minify/html"
-
-	"github.com/haisum/recaptcha"
 )
 
 type messageModel struct {
@@ -26,12 +24,9 @@ var reCaptchaSiteKey = os.Getenv("RECAPTCHA_SITE_KEY")
 var reCaptcha = recaptcha.R{
 	Secret: os.Getenv("RECAPTCHA_SECRET_KEY"),
 }
-
-//the function for the minifying
 var m = minify.New()
 
 func compileTemplates(templatePaths ...string) (*template.Template, error) {
-
 	var tmpl *template.Template
 	for _, templatePath := range templatePaths {
 		name := filepath.Base(templatePath)
@@ -60,20 +55,21 @@ func minifyCSSFiles(templateDirectory string) {
 	cssFilePaths, _ := filepath.Glob(filepath.Join(cssFileDirectory, "*.css"))
 	for _, cssFilePath := range cssFilePaths {
 		if cssFilePath[len(cssFilePath)-8:] != ".min.css" {
-			cssFile, err := ioutil.ReadFile(cssFilePath)
-			if err != nil {
-				panic(err)
-			}
-			cssFile, err = m.Bytes("text/css", cssFile)
-			if err != nil {
-				panic(err)
-			}
-			cssFilePathBase := filepath.Base(cssFilePath)
-			miniCSSFilePath := filepath.Join(cssFileDirectory, cssFilePathBase[:len(cssFilePathBase)-3]) + "min.css"
-			err = ioutil.WriteFile(miniCSSFilePath, cssFile, 0666)
-			if err != nil {
-				panic(err)
-			}
+			continue
+		}
+		cssFile, err := ioutil.ReadFile(cssFilePath)
+		if err != nil {
+			panic(err)
+		}
+		cssFile, err = m.Bytes("text/css", cssFile)
+		if err != nil {
+			panic(err)
+		}
+		cssFilePathBase := filepath.Base(cssFilePath)
+		miniCSSFilePath := filepath.Join(cssFileDirectory, cssFilePathBase[:len(cssFilePathBase)-3]) + "min.css"
+		err = ioutil.WriteFile(miniCSSFilePath, cssFile, 0666)
+		if err != nil {
+			panic(err)
 		}
 	}
 }
