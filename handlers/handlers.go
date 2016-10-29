@@ -3,7 +3,11 @@ package handlers
 import (
 	"fmt"
 	"github.com/haisum/recaptcha"
+	"github.com/tdewolff/minify"
+	"github.com/tdewolff/minify/css"
+	"github.com/tdewolff/minify/html"
 	"html/template"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -20,12 +24,65 @@ var reCaptchaSiteKey = os.Getenv("RECAPTCHA_SITE_KEY")
 var reCaptcha = recaptcha.R{
 	Secret: os.Getenv("RECAPTCHA_SECRET_KEY"),
 }
+var m = minify.New()
+
+func compileTemplates(templatePaths ...string) (*template.Template, error) {
+	var tmpl *template.Template
+	for _, templatePath := range templatePaths {
+		name := filepath.Base(templatePath)
+		if tmpl == nil {
+			tmpl = template.New(name)
+		} else {
+			tmpl = tmpl.New(name)
+		}
+
+		b, err := ioutil.ReadFile(templatePath)
+		if err != nil {
+			return nil, err
+		}
+
+		mb, err := m.Bytes("text/html", b)
+		if err != nil {
+			return nil, err
+		}
+		tmpl.Parse(string(mb))
+	}
+	return tmpl, nil
+}
+
+func minifyCSSFiles(templateDirectory string) {
+	cssFileDirectory := filepath.Join(templateDirectory, "../assets/css/")
+	cssFilePaths, _ := filepath.Glob(filepath.Join(cssFileDirectory, "*.css"))
+	for _, cssFilePath := range cssFilePaths {
+		if cssFilePath[len(cssFilePath)-8:] != ".min.css" {
+			continue
+		}
+		cssFile, err := ioutil.ReadFile(cssFilePath)
+		if err != nil {
+			panic(err)
+		}
+		cssFile, err = m.Bytes("text/css", cssFile)
+		if err != nil {
+			panic(err)
+		}
+		cssFilePathBase := filepath.Base(cssFilePath)
+		miniCSSFilePath := filepath.Join(cssFileDirectory, cssFilePathBase[:len(cssFilePathBase)-3]) + "min.css"
+		err = ioutil.WriteFile(miniCSSFilePath, cssFile, 0666)
+		if err != nil {
+			panic(err)
+		}
+	}
+}
 
 // Execute loads templates from the specified directory and configures routes.
 func Execute(templateDirectory string) error {
 	if _, err := os.Stat(templateDirectory); err != nil {
 		return fmt.Errorf("Could not find template directory '%s'.", templateDirectory)
 	}
+
+	m.AddFunc("text/html", html.Minify)
+	m.AddFunc("text/css", css.Minify)
+	minifyCSSFiles(templateDirectory)
 
 	// Loads template paths.
 	templatePaths, _ := filepath.Glob(filepath.Join(templateDirectory, "*.tmpl"))
@@ -35,14 +92,10 @@ func Execute(templateDirectory string) error {
 	templates = make(map[string]*template.Template)
 
 	for _, templatePath := range templatePaths {
-		t, err := template.ParseFiles(append(sharedPaths, templatePath)...)
-
-		if err != nil {
-			return err
-		}
+		tmpl := template.Must(compileTemplates(append(sharedPaths, templatePath)...))
 
 		name := strings.Split(filepath.Base(templatePath), ".")[0]
-		templates[name] = t
+		templates[name] = tmpl
 	}
 
 	// Configures the routes.
