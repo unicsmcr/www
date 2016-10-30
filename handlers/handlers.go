@@ -66,8 +66,8 @@ func minifyCSSFiles(templateDirectory string) {
 			panic(err)
 		}
 		cssFilePathBase := filepath.Base(cssFilePath)
-		miniCSSFilePath := filepath.Join(cssFileDirectory, cssFilePathBase[:len(cssFilePathBase)-3]) + "min.css"
-		err = ioutil.WriteFile(miniCSSFilePath, cssFile, 0666)
+		minCSSFilePath := strings.Replace(cssFilePath, ".css", ".min.css", 1)
+		err = ioutil.WriteFile(minCSSFilePath, cssFile, 0666)
 		if err != nil {
 			panic(err)
 		}
