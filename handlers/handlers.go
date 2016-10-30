@@ -54,7 +54,7 @@ func minifyCSSFiles(templateDirectory string) {
 	cssFileDirectory := filepath.Join(templateDirectory, "../assets/css/")
 	cssFilePaths, _ := filepath.Glob(filepath.Join(cssFileDirectory, "*.css"))
 	for _, cssFilePath := range cssFilePaths {
-		if cssFilePath[len(cssFilePath)-8:] != ".min.css" {
+		if cssFilePath[len(cssFilePath)-8:] == ".min.css" {
 			continue
 		}
 		cssFile, err := ioutil.ReadFile(cssFilePath)
