@@ -2,6 +2,7 @@
 *.o
 *.a
 *.so
+*.min.css
 
 # Folders
 _obj
@@ -25,4 +26,4 @@ _testmain.go
 
 pkg
 src
-*min*
+
