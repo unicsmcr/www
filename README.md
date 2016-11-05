@@ -14,7 +14,7 @@ Follow these instructions to run the website on your local machine.
 #### Optional
 * Enabling reCAPTCHA requires a secret key and a site key. The first two steps of [this tutorial](https://webdesign.tutsplus.com/tutorials/how-to-integrate-no-captcha-recaptcha-in-your-website--cms-23024) explain how to get them.
 * To enable SendGrid, create a [free account](https://sendgrid.com/free/) and get an API key.
-* A MySQL database is needed by certain features (such as signing up). Run the queries from the ```sql```  folder to generate th required tables in a new database. To connect the website to the database, a data source name (DSN) must be provided. Read [this](https://github.com/go-sql-driver/mysql#dsn-data-source-name) for details on how a DSN string is formatted.
+* A MySQL database is needed by certain features (such as signing up). Run the queries from the ```sql```  folder to generate the required tables in a new database. To connect the website to the database, a data source name (DSN) must be provided. Read [this](https://github.com/go-sql-driver/mysql#dsn-data-source-name) for details on how a DSN string is formatted.
 
 If you choose to ignore these optional prerequisites, certain parts of the website may be deactivated or not work as expected.
 
@@ -56,7 +56,7 @@ $ go test ./...
 
 ### Authors
 
-See the list of contributors [here](https://github.com/hacksoc-manchester/www/graphs/contributors)
+See the list of contributors [here](https://github.com/hacksoc-manchester/www/graphs/contributors).
 
 ### License
 
