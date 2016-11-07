@@ -12,7 +12,6 @@ import (
 )
 
 var block cipher.Block
-var symmetricKey string
 
 func init() {
 	if os.Getenv("SYMMETRIC_KEY") == "" {
