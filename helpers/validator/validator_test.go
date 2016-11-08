@@ -1,7 +1,7 @@
 package validator
 
 import (
-	r "github.com/hacksoc-manchester/www/helpers/rand"
+	"github.com/hacksoc-manchester/www/helpers/rand"
 	"strings"
 	"testing"
 )
@@ -12,32 +12,32 @@ type testCase struct {
 }
 
 var emailTests = []testCase{
-	{r.RandString(91) + "@" + r.RandString(4) + "." + r.RandString(3), true},
-	{r.RandString(50) + "@gmail.com", true},
-	{r.RandString(10) + "@" + r.RandString(5) + "." + r.RandString(3), true},
-	{r.RandString(20), false},
-	{r.RandString(99), false},
-	{r.RandString(50) + "@" + r.RandString(10), false},
-	{r.RandString(10) + "." + r.RandString(4), false},
-	{r.RandString(100), false},
+	{rand.RandString(91) + "@" + rand.RandString(4) + "." + rand.RandString(3), true},
+	{rand.RandString(50) + "@gmail.com", true},
+	{rand.RandString(10) + "@" + rand.RandString(5) + "." + rand.RandString(3), true},
+	{rand.RandString(20), false},
+	{rand.RandString(99), false},
+	{rand.RandString(50) + "@" + rand.RandString(10), false},
+	{rand.RandString(10) + "." + rand.RandString(4), false},
+	{rand.RandString(100), false},
 }
 
 var messageTests = []testCase{
-	{r.RandString(3999), true},
-	{r.RandString(int(r.Src().Int63() % 400)), true},
-	{strings.Repeat(" ", 50) + r.RandString(1), true},
-	{strings.Repeat(" ", 50) + r.RandString(3950), true},
-	{r.RandString(4001), false},
+	{rand.RandString(3999), true},
+	{rand.RandString(int(rand.Src().Int63() % 400)), true},
+	{strings.Repeat(" ", 50) + rand.RandString(1), true},
+	{strings.Repeat(" ", 50) + rand.RandString(3950), true},
+	{rand.RandString(4001), false},
 	{strings.Repeat(" ", 100), false},
 }
 
 var nameTests = []testCase{
-	{r.RandString(29), true},
-	{r.RandString(1), true},
-	{r.RandString(1) + strings.Repeat(" ", 29), true},
-	{r.RandString(1) + strings.Repeat(" ", 30), false},
-	{r.RandString(31), false},
-	{strings.Repeat(" ", int(r.Src().Int63()%31)), false},
+	{rand.RandString(29), true},
+	{rand.RandString(1), true},
+	{rand.RandString(1) + strings.Repeat(" ", 29), true},
+	{rand.RandString(1) + strings.Repeat(" ", 30), false},
+	{rand.RandString(31), false},
+	{strings.Repeat(" ", int(rand.Src().Int63()%31)), false},
 }
 
 func TestIsValidEmail(t *testing.T) {
