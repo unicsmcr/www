@@ -12,18 +12,13 @@ import (
 )
 
 var block cipher.Block
-var symmetricKey string
 
 func init() {
-	symmetricKey = os.Getenv("SYMMETRIC_KEY")
-	if symmetricKey == "" {
+	if os.Getenv("SYMMETRIC_KEY") == "" {
 		log.Println("Environment variable SYMMETRIC_KEY is not assigned")
 		return
 	}
-	var err error
-
-	err = SetSymmetricKey(symmetricKey)
-	if err != nil {
+	if err := SetSymmetricKey(os.Getenv("SYMMETRIC_KEY")); err != nil {
 		panic(err)
 	}
 }
@@ -68,8 +63,8 @@ func Decrypt(encryptedValue string) (string, error) {
 }
 
 // SetSymmetricKey changes the symmetric key used for encryption and decryption.
-func SetSymmetricKey(symmKey string) error {
+func SetSymmetricKey(key string) error {
 	var err error
-	block, err = aes.NewCipher([]byte(symmKey))
+	block, err = aes.NewCipher([]byte(key))
 	return err
 }

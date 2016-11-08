@@ -1,7 +1,7 @@
 package validator
 
 import (
-	h "github.com/hacksoc-manchester/www/helpers"
+	r "github.com/hacksoc-manchester/www/helpers/rand"
 	"strings"
 	"testing"
 )
@@ -12,32 +12,32 @@ type testCase struct {
 }
 
 var emailTests = []testCase{
-	{h.RandString(91) + "@" + h.RandString(4) + "." + h.RandString(3), true},
-	{h.RandString(50) + "@gmail.com", true},
-	{h.RandString(10) + "@" + h.RandString(5) + "." + h.RandString(3), true},
-	{h.RandString(20), false},
-	{h.RandString(99), false},
-	{h.RandString(50) + "@" + h.RandString(10), false},
-	{h.RandString(10) + "." + h.RandString(4), false},
-	{h.RandString(100), false},
+	{r.RandString(91) + "@" + r.RandString(4) + "." + r.RandString(3), true},
+	{r.RandString(50) + "@gmail.com", true},
+	{r.RandString(10) + "@" + r.RandString(5) + "." + r.RandString(3), true},
+	{r.RandString(20), false},
+	{r.RandString(99), false},
+	{r.RandString(50) + "@" + r.RandString(10), false},
+	{r.RandString(10) + "." + r.RandString(4), false},
+	{r.RandString(100), false},
 }
 
 var messageTests = []testCase{
-	{h.RandString(3999), true},
-	{h.RandString(int(h.Src().Int63() % 400)), true},
-	{strings.Repeat(" ", 50) + h.RandString(1), true},
-	{strings.Repeat(" ", 50) + h.RandString(3950), true},
-	{h.RandString(4001), false},
+	{r.RandString(3999), true},
+	{r.RandString(int(r.Src().Int63() % 400)), true},
+	{strings.Repeat(" ", 50) + r.RandString(1), true},
+	{strings.Repeat(" ", 50) + r.RandString(3950), true},
+	{r.RandString(4001), false},
 	{strings.Repeat(" ", 100), false},
 }
 
 var nameTests = []testCase{
-	{h.RandString(29), true},
-	{h.RandString(1), true},
-	{h.RandString(1) + strings.Repeat(" ", 29), true},
-	{h.RandString(1) + strings.Repeat(" ", 30), false},
-	{h.RandString(31), false},
-	{strings.Repeat(" ", int(h.Src().Int63()%31)), false},
+	{r.RandString(29), true},
+	{r.RandString(1), true},
+	{r.RandString(1) + strings.Repeat(" ", 29), true},
+	{r.RandString(1) + strings.Repeat(" ", 30), false},
+	{r.RandString(31), false},
+	{strings.Repeat(" ", int(r.Src().Int63()%31)), false},
 }
 
 func TestIsValidEmail(t *testing.T) {
@@ -45,9 +45,9 @@ func TestIsValidEmail(t *testing.T) {
 		res := IsValidEmail(emailTest.value)
 		if res != emailTest.result {
 			t.Error(
-				"For ", emailTest.value,
-				"expected result ", emailTest.result,
-				"got ", res,
+				"For", emailTest.value,
+				"expected result", emailTest.result,
+				"got", res,
 			)
 		}
 	}

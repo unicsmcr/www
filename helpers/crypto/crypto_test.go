@@ -1,26 +1,27 @@
 package crypto
 
 import (
-	h "github.com/hacksoc-manchester/www/helpers"
+	r "github.com/hacksoc-manchester/www/helpers/rand"
 	"testing"
 )
 
 func TestCrypto(t *testing.T) {
-	SetSymmetricKey(h.RandString(32))
+	SetSymmetricKey(r.RandString(32))
+	var decryptedValue string
 	for i := 0; i < 10; i++ {
-		val := h.RandString(int(h.Src().Int63() % 101))
-		res, err := Encrypt(val)
+		value := r.RandString(int(r.Src().Int63() % 101))
+		encryptedValue, err := Encrypt(value)
 		if err != nil {
 			panic(err)
 		}
-		res, err = Decrypt(res)
+		decryptedValue, err = Decrypt(encryptedValue)
 		if err != nil {
 			panic(err)
-		} else if val != res {
+		} else if value != decryptedValue {
 			t.Error(
-				"For ", val,
-				"expected result ", val,
-				"got ", res,
+				"For", value,
+				"expected result", value,
+				"got", decryptedValue,
 			)
 		}
 	}
