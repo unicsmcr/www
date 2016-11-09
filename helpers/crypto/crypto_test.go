@@ -7,7 +7,6 @@ import (
 
 func TestCrypto(t *testing.T) {
 	SetSymmetricKey(rand.RandString(32))
-	var decryptedValue string
 	for i := 0; i < 10; i++ {
 		value := rand.RandString(int(rand.Src().Int63() % 101))
 		encryptedValue, err := Encrypt(value)
@@ -15,7 +14,7 @@ func TestCrypto(t *testing.T) {
 			panic(err)
 		}
 
-		decryptedValue, err = Decrypt(encryptedValue)
+		decryptedValue, err := Decrypt(encryptedValue)
 		if err != nil {
 			panic(err)
 		}
