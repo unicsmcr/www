@@ -1,10 +1,9 @@
 package validator
 
 import (
-	"math/rand"
+	"github.com/hacksoc-manchester/www/helpers/rand"
 	"strings"
 	"testing"
-	"time"
 )
 
 type testCase struct {
@@ -13,32 +12,32 @@ type testCase struct {
 }
 
 var emailTests = []testCase{
-	{randString(91) + "@" + randString(4) + "." + randString(3), true},
-	{randString(50) + "@gmail.com", true},
-	{randString(10) + "@" + randString(5) + "." + randString(3), true},
-	{randString(20), false},
-	{randString(99), false},
-	{randString(50) + "@" + randString(10), false},
-	{randString(10) + "." + randString(4), false},
-	{randString(100), false},
+	{rand.RandString(91) + "@" + rand.RandString(4) + "." + rand.RandString(3), true},
+	{rand.RandString(50) + "@gmail.com", true},
+	{rand.RandString(10) + "@" + rand.RandString(5) + "." + rand.RandString(3), true},
+	{rand.RandString(20), false},
+	{rand.RandString(99), false},
+	{rand.RandString(50) + "@" + rand.RandString(10), false},
+	{rand.RandString(10) + "." + rand.RandString(4), false},
+	{rand.RandString(100), false},
 }
 
 var messageTests = []testCase{
-	{randString(3999), true},
-	{randString(int(src.Int63() % 400)), true},
-	{strings.Repeat(" ", 50) + randString(1), true},
-	{strings.Repeat(" ", 50) + randString(3950), true},
-	{randString(4001), false},
+	{rand.RandString(3999), true},
+	{rand.RandString(int(rand.Src().Int63() % 400)), true},
+	{strings.Repeat(" ", 50) + rand.RandString(1), true},
+	{strings.Repeat(" ", 50) + rand.RandString(3950), true},
+	{rand.RandString(4001), false},
 	{strings.Repeat(" ", 100), false},
 }
 
 var nameTests = []testCase{
-	{randString(29), true},
-	{randString(1), true},
-	{randString(1) + strings.Repeat(" ", 29), true},
-	{randString(1) + strings.Repeat(" ", 30), false},
-	{randString(31), false},
-	{strings.Repeat(" ", int(src.Int63()%31)), false},
+	{rand.RandString(29), true},
+	{rand.RandString(1), true},
+	{rand.RandString(1) + strings.Repeat(" ", 29), true},
+	{rand.RandString(1) + strings.Repeat(" ", 30), false},
+	{rand.RandString(31), false},
+	{strings.Repeat(" ", int(rand.Src().Int63()%31)), false},
 }
 
 func TestIsValidEmail(t *testing.T) {
@@ -78,34 +77,4 @@ func TestIsValidName(t *testing.T) {
 			)
 		}
 	}
-}
-
-// new source for rand func, seeding it with time.Now().UnixNano()
-// for different outputs at different runs
-var src = rand.NewSource(time.Now().UnixNano())
-
-const (
-	lettDig      = "0123456789abcdefghijklmnopqrstuvwqxyzABCDEFGHIJKLMNOPQRSTUVQWXYZ"
-	letterIdBits = 6                 // 6 bits to represent a letter index
-	letterIdMask = 1<<6 - 1          // all the bits set to 1
-	letterMax    = 63 / letterIdBits // number of letter indices fitting in 63 bits
-)
-
-// rand function, using byte optimization, using almost all the
-// 64 bits of the src.Int63() (by shifting them), in order to
-// minimize the number of calls
-func randString(n int) string {
-	a := make([]byte, n)
-	for i, cache, remain := n-1, src.Int63(), letterMax; i >= 0; {
-		if remain == 0 {
-			cache, remain = src.Int63(), letterMax
-		}
-		if idx := int(cache & letterIdMask); idx < len(lettDig) {
-			a[i] = lettDig[idx]
-			i--
-		}
-		cache >>= letterIdBits
-		remain--
-	}
-	return string(a)
 }
