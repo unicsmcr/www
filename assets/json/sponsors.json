@@ -1,0 +1,17 @@
+[
+    {
+        "id": "namebox",
+        "url": "https://www.namebox.ro/"
+    },
+    {
+        "id": "stormforce",
+        "url": "http://www.zoostorm.com/product-category-gaming/stormforce-gaming-pcs/"
+    },
+
+
+    {
+        "_comment": "This section is for the pizza provider. Please leave it last.",
+        "id": "lovepizza",
+        "url": "http://lovepizza.com/"
+    }
+]

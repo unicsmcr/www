@@ -1,0 +1,25 @@
+{{ define "head" }}
+  <title>Partners | HackSoc</title>
+  <link rel="stylesheet" type="text/css" href="assets/css/partners.min.css" />
+{{ end }}
+
+
+{{ define "content" }}
+  <section id="partners">
+    <h1>Partners</h1>
+    <div class="sponsors">
+      {{ range . }}
+
+        {{ if eq .ID "lovepizza" }}
+        <span>
+          Pizza provided by:
+        </span>
+        {{ end }}
+
+        <a href="{{ .URL }}" target="_blank">
+          <img class="sponsor" src="assets/images/partners/{{ .ID }}.png" alt="{{ .ID }}">
+        </a>
+      {{ end }}
+    </div>
+  </section>
+{{ end }}
