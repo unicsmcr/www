@@ -1,7 +1,7 @@
 {{ define "head" }}
     <title>Gallery | HackSoc</title>
     <link rel="stylesheet" type="text/css" href="assets/css/gallery.min.css" />
-    <script src="../assets/javascript/jquery.min.js"></script> 
+    <script src="../assets/javascript/jquery.min.js"></script>
 {{ end }}
 
 {{ define "content" }}
@@ -9,7 +9,7 @@
         <h2>Gallery</h2>
         <div class="gallery-container">
             {{ range .Photosets.Photoset }}
-                <a href="http://www.flickr.com/photos/135625591@N04/sets/{{ .ID }}" target="_blank">
+                <a href="http://www.flickr.com/photos/147757828@N02/sets/{{ .ID }}" target="_blank">
                     <div class="image-container" style='background-image: url("https://farm{{ .Farm }}.staticflickr.com/{{ .Server }}/{{ .Primary }}_{{ .Secret }}.jpg")'>
                         <div>
                             <h2 id="h2{{ .ID }}"></h2>
