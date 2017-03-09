@@ -1,6 +1,6 @@
 # HackSoc Web Application
 
-The official website of [HackSoc](http://hacksoc.com/) from The University of Manchester. We also have a [Facebook page](https://www.facebook.com/groups/HackSocManc/).
+The official website of [HackSoc](http://hacksoc.com/) from The University of Manchester. We also have a [Facebook](https://www.facebook.com/groups/HackSocManc/) and [LinkedIn](https://www.linkedin.com/company-beta/17980188/) page!
 
 ### Getting Started
 
