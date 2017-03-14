@@ -9,7 +9,7 @@ Follow these instructions to run the website on your local machine.
 ### Prerequisites
 
 #### Required
-* The Go distribution [here](https://golang.org/doc/install).
+* Download and install the Go distribution from [here](https://golang.org/doc/install).
 
 #### Optional
 * Enabling reCAPTCHA requires a secret key and a site key. The first two steps of [this tutorial](https://webdesign.tutsplus.com/tutorials/how-to-integrate-no-captcha-recaptcha-in-your-website--cms-23024) explain how to get them.
