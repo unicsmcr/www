@@ -6,7 +6,10 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"net/url"
 	"os"
+	"strconv"
+	"strings"
 )
 
 type JSONPhotosets struct {
@@ -27,8 +30,15 @@ type JSONPhotosets struct {
 	}
 }
 
+type Album struct {
+	Title       string
+	Description string
+	Link        string
+	ImageURL    string
+}
+
 var jsonBytes []byte
-var photosets JSONPhotosets
+var photos JSONPhotosets
 
 func init() {
 
@@ -44,8 +54,22 @@ func init() {
 
 	apiKey := os.Getenv("FLICKR_API_KEY")
 	userID := os.Getenv("FLICKR_USER_ID")
-	res, err := http.Get("https://api.flickr.com/services/rest/?&method=flickr.photosets.getList&api_key=" +
-		apiKey + "&user_id=" + userID + "&format=json")
+	hc := http.Client{}
+	apiURL := "https://api.flickr.com/services/rest/"
+	form := url.Values{}
+	form.Add("method", "flickr.photosets.getList")
+	form.Add("format", "json")
+	form.Add("api_key", apiKey)
+	form.Add("user_id", userID)
+
+	req, err := http.NewRequest("POST", apiURL, strings.NewReader(form.Encode()))
+	if err != nil {
+		panic(err)
+	}
+	req.PostForm = form
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+
+	res, err := hc.Do(req)
 	if err != nil {
 		panic(err)
 	}
@@ -58,12 +82,24 @@ func init() {
 	jsonBytes = jsonBytes[14 : len(jsonBytes)-1]
 	jsonBytes = bytes.Replace(jsonBytes, []byte("_"), []byte(""), -1)
 
-	err = json.Unmarshal(jsonBytes, &photosets)
+	err = json.Unmarshal(jsonBytes, &photos)
 	if err != nil {
 		panic(err)
 	}
 }
 
-func GetAlbums() JSONPhotosets {
-	return photosets
+func GetAlbums() []map[string]string {
+
+	var albums []map[string]string
+	for _, photoset := range photos.Photosets.Photoset {
+
+		album := map[string]string{
+			"Title":       photoset.Title.Content,
+			"Description": photoset.Description.Content,
+			"Link":        "http://www.flickr.com/photos/" + os.Getenv("FLICKR_USER_ID") + "/sets/" + photoset.ID,
+			"ImageURL":    "https://farm" + strconv.Itoa(photoset.Farm) + ".staticflickr.com/" + photoset.Server + "/" + photoset.Primary + "_" + photoset.Secret + ".jpg",
+		}
+		albums = append(albums, album)
+	}
+	return albums
 }

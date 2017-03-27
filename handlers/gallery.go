@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-var albums galleryService.JSONPhotosets
+var albums []map[string]string
 
 func init() {
 	albums = galleryService.GetAlbums()
