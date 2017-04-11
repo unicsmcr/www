@@ -6,10 +6,10 @@
 {{ define "content" }}
     <section id="gallery">
         <h2>Gallery</h2>
-        <div class="gallery-container">
+        <div class="galleries">
             {{ range . }}
                 <a href="{{ .Link }}" target="_blank">
-                    <div class="image-container" style='background-image: url("{{ .ImageURL }}")'>
+                    <div class="gallery" style='background-image: url("{{ .ImageURL }}")'>
                         <div>
                             <h2>{{ .Title }}</h2>
                             <p>{{ .Description }}</p>

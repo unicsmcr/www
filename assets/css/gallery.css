@@ -1,10 +1,10 @@
-.gallery-container{
+.galleries{
     padding: 30px 130px;
     padding: 30px 14vw;
     font-size: 0;
 }
 
-.image-container {
+.gallery {
     display: inline-block;
     width: 200px;
     height: 200px;
@@ -12,7 +12,7 @@
     background-size: cover;
 }
 
-    .image-container div{
+    .gallery div {
         width: 100%;
         height: 30%;
         top: 70%;
@@ -20,7 +20,7 @@
         position: relative;
     }
 
-    .image-container h2 {
+    .gallery h2 {
         margin: 0;
         padding: 5px 0 0 10px;
         color: #fff;
@@ -31,7 +31,7 @@
         line-height: 24px;
     }
 
-    .image-container p {
+    .gallery p {
         margin: 0;
         padding: 5px 0 0 10px;
         color: #fff;
@@ -46,17 +46,17 @@
 
 @media screen and (max-width: 736px) {
 
-    .gallery-container {
+    .galleries {
         padding: 30px 6px;
     }
 
-    .image-container {
+    .gallery {
         width: 140px;
         height: 140px;
         margin: 3px;
     }
 
-        .image-container h2 {
+        .gallery h2 {
             padding: 3px 0 0 5px;
             font-size: 13px;
             font-weight: 400;
@@ -64,7 +64,7 @@
             line-height: 19px;
         }
 
-        .image-container p {
+        .gallery p {
             padding: 0 0 0 5px;
             font-size: 12px;
             height: 17px;
