@@ -1,8 +1,9 @@
-.galleries{
-    padding: 30px 130px;
-    padding: 30px 14vw;
+/* Widescreen */
+.galleries {
+    padding: 30px 130px; padding: 30px 14vw;
     font-size: 0;
 }
+
 
 .gallery {
     display: inline-block;
@@ -42,12 +43,14 @@
         line-height: 19px;
     }
 
+
 /* Mobile */
 @media screen and (max-width: 736px) {
     .galleries {
         padding: 30px 6px;
     }
 
+    
     .gallery {
         width: 140px;
         height: 140px;
