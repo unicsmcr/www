@@ -9,27 +9,9 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"strings"
 )
 
-type JSONPhotosets struct {
-	Photosets struct {
-		Photoset []struct {
-			ID      string
-			Primary string
-			Secret  string
-			Server  string
-			Farm    int
-			Title   struct {
-				Content string
-			}
-			Description struct {
-				Content string
-			}
-		}
-	}
-}
-
+// An Album represents a HackSoc album.
 type Album struct {
 	Title       string
 	Description string
@@ -38,7 +20,8 @@ type Album struct {
 }
 
 var albums []map[string]string
-const flickrApiURL = "https://api.flickr.com/services/rest/"
+
+const flickrAPIURL = "https://api.flickr.com/services/rest"
 
 func init() {
 	if os.Getenv("FLICKR_API_KEY") == "" {
@@ -51,22 +34,18 @@ func init() {
 		return
 	}
 
-	flickrApiKey := os.Getenv("FLICKR_API_KEY")
-	flickrUserID := os.Getenv("FLICKR_USER_ID")
-	httpClient := http.Client{}
 	form := url.Values{}
 	form.Add("method", "flickr.photosets.getList")
 	form.Add("format", "json")
-	form.Add("api_key", flickrApiKey)
-	form.Add("user_id", flickrUserID)
+	form.Add("nojsoncallback", "true")
+	form.Add("api_key", os.Getenv("FLICKR_API_KEY"))
+	form.Add("user_id", os.Getenv("FLICKR_USER_ID"))
 
-	req, err := http.NewRequest("POST", flickrApiURL, strings.NewReader(form.Encode()))
-	if err != nil {
-		panic(err)
-	}
-	req.PostForm = form
+	req, _ := http.NewRequest("POST", flickrAPIURL, bytes.NewBufferString(form.Encode()))
 	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+	req.PostForm = form
 
+	httpClient := http.Client{}
 	res, err := httpClient.Do(req)
 	if err != nil {
 		panic(err)
@@ -77,33 +56,50 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
-	// Delete the "jsonFlickrApi(" prefix and the ")" suffix from the response
-	jsonBytes = jsonBytes[14 : len(jsonBytes)-1]
 
-	// Rename field names from "_fieldName" to "fieldName"
-	// Replace will
-	jsonBytes = bytes.Replace(jsonBytes, []byte("_"), []byte(""), -1)
+	var photos struct {
+		Photosets struct {
+			Photoset []struct {
+				ID      string
+				Primary string
+				Secret  string
+				Server  string
+				Farm    int
+				Title   struct {
+					Content string `json:"_content"`
+				}
+				Description struct {
+					Content string `json:"_content"`
+				}
+			}
+		}
+	}
 
-	var photos JSONPhotosets
 	if err = json.Unmarshal(jsonBytes, &photos); err != nil {
 		panic(err)
 	}
 
 	for _, photoset := range photos.Photosets.Photoset {
-		albumLink := fmt.Sprintf("https://www.flickr.com/photos/%s/sets/%s",
+		// Get the album link.
+		link := fmt.Sprintf("https://www.flickr.com/photos/%s/sets/%s",
 			os.Getenv("FLICKR_USER_ID"), photoset.ID)
-		albumImage := fmt.Sprintf("https://farm%d.staticflickr.com/%s/%s_%s.jpg",
+
+		// Get the album thumbnail URL.
+		thumbnailURL := fmt.Sprintf("https://farm%d.staticflickr.com/%s/%s_%s.jpg",
 			photoset.Farm, photoset.Server, photoset.Primary, photoset.Secret)
+
 		album := map[string]string{
 			"Title":       photoset.Title.Content,
 			"Description": photoset.Description.Content,
-			"Link":        albumLink,
-			"ImageURL":    albumImage,
+			"Link":        link,
+			"ImageURL":    thumbnailURL,
 		}
+
 		albums = append(albums, album)
 	}
 }
 
+// GetAlbums gets the albums.
 func GetAlbums() []map[string]string {
 	return albums
 }
