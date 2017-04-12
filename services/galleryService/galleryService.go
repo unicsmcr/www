@@ -38,7 +38,6 @@ type Album struct {
 }
 
 var albums []map[string]string
-
 const flickrApiURL = "https://api.flickr.com/services/rest/"
 
 func init() {
@@ -74,17 +73,15 @@ func init() {
 	}
 	defer res.Body.Close()
 
-	var jsonBytes []byte
-	jsonBytes, err = ioutil.ReadAll(res.Body)
+	jsonBytes, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		panic(err)
 	}
-	// The first 14 characters and the last one are always "jsonFlickrApi(" and ")"
-	// They need to be removed, otherwise the json won't unmarshal
+	// Delete the "jsonFlickrApi(" prefix and the ")" suffix from the response
 	jsonBytes = jsonBytes[14 : len(jsonBytes)-1]
-	// The titles and descriptions of the albums returned are stored in fields called
-	// "_content". The underscore makes the unmarshal function ignore them, so they have
-	// to be removed.
+
+	// Rename field names from "_fieldName" to "fieldName"
+	// Replace will
 	jsonBytes = bytes.Replace(jsonBytes, []byte("_"), []byte(""), -1)
 
 	var photos JSONPhotosets
@@ -93,8 +90,7 @@ func init() {
 	}
 
 	for _, photoset := range photos.Photosets.Photoset {
-
-		albumLink := fmt.Sprintf("http://www.flickr.com/photos/%s/sets/%s",
+		albumLink := fmt.Sprintf("https://www.flickr.com/photos/%s/sets/%s",
 			os.Getenv("FLICKR_USER_ID"), photoset.ID)
 		albumImage := fmt.Sprintf("https://farm%d.staticflickr.com/%s/%s_%s.jpg",
 			photoset.Farm, photoset.Server, photoset.Primary, photoset.Secret)

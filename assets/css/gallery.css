@@ -43,9 +43,7 @@
     }
 
 /* Mobile */
-
 @media screen and (max-width: 736px) {
-
     .galleries {
         padding: 30px 6px;
     }
