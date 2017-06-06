@@ -2,16 +2,17 @@ package handlers
 
 import (
 	"fmt"
-	"github.com/haisum/recaptcha"
-	"github.com/tdewolff/minify"
-	"github.com/tdewolff/minify/css"
-	"github.com/tdewolff/minify/html"
 	"html/template"
 	"io/ioutil"
 	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/haisum/recaptcha"
+	"github.com/tdewolff/minify"
+	"github.com/tdewolff/minify/css"
+	"github.com/tdewolff/minify/html"
 )
 
 type messageModel struct {
@@ -29,13 +30,16 @@ var m = minify.New()
 
 func compileTemplates(templatePaths ...string) (*template.Template, error) {
 	var tmpl *template.Template
+
 	for _, templatePath := range templatePaths {
 		name := filepath.Base(templatePath)
+
 		if tmpl == nil {
 			tmpl = template.New(name)
 		} else {
 			tmpl = tmpl.New(name)
 		}
+
 		b, err := ioutil.ReadFile(templatePath)
 		if err != nil {
 			return nil, err
@@ -45,26 +49,32 @@ func compileTemplates(templatePaths ...string) (*template.Template, error) {
 		if err != nil {
 			return nil, err
 		}
+
 		tmpl.Parse(string(mb))
 	}
+
 	return tmpl, nil
 }
 
 func minifyCSSFiles(templateDirectory string) {
 	cssFileDirectory := filepath.Join(templateDirectory, "../assets/css/")
 	cssFilePaths, _ := filepath.Glob(filepath.Join(cssFileDirectory, "*.css"))
+
 	for _, cssFilePath := range cssFilePaths {
 		if strings.HasSuffix(cssFilePath, ".min.css") {
 			continue
 		}
+
 		cssFile, err := ioutil.ReadFile(cssFilePath)
 		if err != nil {
 			panic(err)
 		}
+
 		cssFile, err = m.Bytes("text/css", cssFile)
 		if err != nil {
 			panic(err)
 		}
+
 		minCSSFilePath := strings.Replace(cssFilePath, ".css", ".min.css", 1)
 		err = ioutil.WriteFile(minCSSFilePath, cssFile, 0666)
 		if err != nil {
@@ -76,7 +86,7 @@ func minifyCSSFiles(templateDirectory string) {
 // Execute loads templates from the specified directory and configures routes.
 func Execute(templateDirectory string) error {
 	if _, err := os.Stat(templateDirectory); err != nil {
-		return fmt.Errorf("Could not find template directory '%s'.", templateDirectory)
+		return fmt.Errorf("Could not find template directory '%s'", templateDirectory)
 	}
 
 	m.AddFunc("text/html", html.Minify)

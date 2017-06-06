@@ -3,13 +3,15 @@ package databaseService
 import (
 	"database/sql"
 	"errors"
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/hacksoc-manchester/www/helpers/validator"
 	"log"
 	"os"
+
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/hacksoc-manchester/www/helpers/validator"
 )
 
-type userEntry struct {
+// UserEntry is a row from the "User" table.
+type UserEntry struct {
 	FirstName            string
 	LastName             string
 	Email                string
@@ -57,9 +59,9 @@ func CreateUser(firstName, lastName, email string, subscribedToArticles, subscri
 }
 
 // GetUser retrieves the user with the specified email.
-func GetUser(email string) (*userEntry, error) {
+func GetUser(email string) (*UserEntry, error) {
 	stmt, _ := db.Prepare("select * from User where Email = ?")
-	user := new(userEntry)
+	user := new(UserEntry)
 	err := stmt.QueryRow(email).Scan(
 		&user.FirstName,
 		&user.LastName,

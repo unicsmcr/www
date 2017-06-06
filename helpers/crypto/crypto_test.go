@@ -1,8 +1,9 @@
 package crypto
 
 import (
-	"github.com/hacksoc-manchester/www/helpers/rand"
 	"testing"
+
+	"github.com/hacksoc-manchester/www/helpers/rand"
 )
 
 func TestCrypto(t *testing.T) {

@@ -1,19 +1,20 @@
 package main
 
 import (
-	"github.com/hacksoc-manchester/www/handlers"
 	"log"
 	"net/http"
 	"os"
 	"path/filepath"
+
+	"github.com/hacksoc-manchester/www/handlers"
 )
 
 func main() {
-	// Makes the assets folder public.
+	// Make the "assets" folder public.
 	fs := http.FileServer(http.Dir("assets"))
 	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
 
-	// Sets up the routes.
+	// Set up the routes.
 	dir, _ := os.Getwd()
 	templateDirectory := filepath.Join(dir, "templates")
 
@@ -21,7 +22,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// Starts the server.
+	// Start the server.
 	if os.Getenv("HTTP_PLATFORM_PORT") != "" {
 		http.ListenAndServe(":"+os.Getenv("HTTP_PLATFORM_PORT"), nil)
 	} else {

@@ -1,16 +1,12 @@
 package handlers
 
 import (
-	"github.com/hacksoc-manchester/www/services/galleryService"
 	"net/http"
+
+	"github.com/hacksoc-manchester/www/services/galleryService"
 )
 
-var albums []map[string]string
-
-func init() {
-	albums = galleryService.GetAlbums()
-}
-
 func gallery(w http.ResponseWriter, r *http.Request) {
+	albums := galleryService.GetAlbums()
 	templates["gallery"].ExecuteTemplate(w, "layout", &albums)
 }

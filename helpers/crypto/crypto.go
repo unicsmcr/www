@@ -44,7 +44,7 @@ func Decrypt(encryptedValue string) (string, error) {
 	bytes, err := base64.URLEncoding.DecodeString(encryptedValue)
 
 	if err != nil || len(encryptedValue) < aes.BlockSize {
-		return "", errors.New("Token is invalid.")
+		return "", errors.New("Token is invalid")
 	}
 
 	iv := bytes[:aes.BlockSize]
