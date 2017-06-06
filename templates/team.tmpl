@@ -8,7 +8,19 @@
   <section id="team">
     <h1>Team</h1>
     <div class="members">
-      {{ range . }}
+      {{ range .Current }}
+        <div class="member" style="background-image: url('assets/images/team/{{ .ID }}.small.jpg')">
+          <div>
+            <h2>{{ .Name }}</h2>
+            <p>{{ .Description }}</p>
+          </div>
+        </div>
+      {{ end }}
+    </div>
+    <div class="separator"></div>
+    <h1>Hall of Fame</h1>
+    <div class="members">
+      {{ range .Past }}
         <div class="member" style="background-image: url('assets/images/team/{{ .ID }}.small.jpg')">
           <div>
             <h2>{{ .Name }}</h2>

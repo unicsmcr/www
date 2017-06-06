@@ -8,10 +8,15 @@ import (
 	"path/filepath"
 )
 
-var members []struct {
+type member struct {
 	ID          string
 	Name        string
 	Description string
+}
+
+var members struct {
+	Current []member
+	Past    []member
 }
 
 func init() {
