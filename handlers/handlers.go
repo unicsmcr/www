@@ -93,11 +93,11 @@ func Execute(templateDirectory string) error {
 	m.AddFunc("text/css", css.Minify)
 	minifyCSSFiles(templateDirectory)
 
-	// Loads template paths.
+	// Load template paths.
 	templatePaths, _ := filepath.Glob(filepath.Join(templateDirectory, "*.tmpl"))
 	sharedPaths, _ := filepath.Glob(filepath.Join(templateDirectory, "shared/*.tmpl"))
 
-	// Loads the templates.
+	// Load the templates.
 	templates = make(map[string]*template.Template)
 	for _, templatePath := range templatePaths {
 		tmpl := template.Must(compileTemplates(append(sharedPaths, templatePath)...))
@@ -106,8 +106,9 @@ func Execute(templateDirectory string) error {
 		templates[name] = tmpl
 	}
 
-	// Configures the routes.
+	// Configure the routes.
 	http.HandleFunc("/", index)
+	http.HandleFunc("/robots.txt", robots)
 	http.HandleFunc("/events", events)
 	http.HandleFunc("/team", team)
 	http.HandleFunc("/gallery", gallery)
