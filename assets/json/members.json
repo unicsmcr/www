@@ -50,7 +50,7 @@
         {
             "id": "sami-alabed",
             "name": "Sami Alabed",
-            "description": "Event Director"
+            "description": "Eternal Leader"
         },
         {
             "id": "andrei-muntean",
@@ -85,6 +85,11 @@
         {
             "id": "igor-wodiany",
             "name": "Igor Wodiany",
+            "description": "Hackathon Organizer"
+        },
+        {
+            "id": "ben-possible",
+            "name": "Ben Possible",
             "description": "Hackathon Organizer"
         },
         {
