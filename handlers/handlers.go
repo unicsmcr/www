@@ -116,6 +116,7 @@ func Execute(templateDirectory string) error {
 	http.HandleFunc("/sign-up", signUp)
 	http.HandleFunc("/contact", contact)
 	http.HandleFunc("/unsubscribe", unsubscribe)
+	http.HandleFunc("/qr", qr)
 
 	return nil
 }

@@ -38,6 +38,11 @@
     ],
     "Past": [
         {
+            "id": "sami-alabed",
+            "name": "Sami Alabed",
+            "description": "Eternal Leader"
+        },
+        {
             "id": "cristian-bodnar",
             "name": "Cristian Bodnar",
             "description": "President"
@@ -46,11 +51,6 @@
             "id": "miruna-pislar",
             "name": "Miruna Pislar",
             "description": "Event Director"
-        },
-        {
-            "id": "sami-alabed",
-            "name": "Sami Alabed",
-            "description": "Eternal Leader"
         },
         {
             "id": "andrei-muntean",
@@ -83,13 +83,13 @@
             "description": "Hackathon Director"
         },
         {
-            "id": "igor-wodiany",
-            "name": "Igor Wodiany",
+            "id": "ben-possible",
+            "name": "Ben Possible",
             "description": "Hackathon Organizer"
         },
         {
-            "id": "ben-possible",
-            "name": "Ben Possible",
+            "id": "igor-wodiany",
+            "name": "Igor Wodiany",
             "description": "Hackathon Organizer"
         },
         {
