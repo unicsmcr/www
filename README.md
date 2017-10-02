@@ -56,7 +56,7 @@ $ go test ./...
 
 ### Authors
 
-See the list of contributors [here](https://github.com/hacksoc-manchester/www/graphs/contributors).
+See the [CONTRIBUTORS](CONTRIBUTORS) file.
 
 ### License
 
