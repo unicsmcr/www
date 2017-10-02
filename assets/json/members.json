@@ -21,6 +21,21 @@
             "description": "Dev Officer"
         },
         {
+            "id": "alex-dumitru",
+            "name": "Alex Dumitru",
+            "description": "Dev Member"
+        },
+        {
+            "id": "ivan-donat-pupovac",
+            "name": "Ivan Donat Pupovac",
+            "description": "Dev Member"
+        },
+        {
+            "id": "kristijonas-zalys",
+            "name": "Kristijonas Zalys",
+            "description": "Dev Member"
+        },
+        {
             "id": "bogdan-facaianu",
             "name": "Bogdan Facaianu",
             "description": "Graphics Officer"
