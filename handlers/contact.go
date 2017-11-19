@@ -1,10 +1,11 @@
 package handlers
 
 import (
-	"github.com/hacksoc-manchester/www/helpers/validator"
-	"github.com/hacksoc-manchester/www/services/emailService"
 	"net/http"
 	"os"
+
+	"github.com/hacksoc-manchester/www/helpers/validator"
+	"github.com/hacksoc-manchester/www/services/emailService"
 )
 
 func contact(w http.ResponseWriter, r *http.Request) {

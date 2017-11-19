@@ -5,42 +5,40 @@ import (
 	"time"
 )
 
-// new source for rand func, seeding it with time.Now().UnixNano()
-// for different outputs at different runs
+// A source that is seeded with time.Now().UnixNano() for different outputs at
+// different runs.
 var src = rand.NewSource(time.Now().UnixNano())
 
 const (
 	lettDig      = "0123456789abcdefghijklmnopqrstuvwqxyzABCDEFGHIJKLMNOPQRSTUVQWXYZ"
-	letterIdBits = 6                 // 6 bits to represent a letter index
-	letterIdMask = 1<<6 - 1          // all the bits set to 1
-	letterMax    = 63 / letterIdBits // number of letter indices fitting in 63 bits
+	letterIDBits = 6                 // 6 bits to represent a letter index
+	letterIDMask = 1<<6 - 1          // all the bits set to 1
+	letterMax    = 63 / letterIDBits // number of letters that fit in 63 bits
 )
 
-// must define type Source
+// Source is a pseudo-random source that is seeded with the specified value.
 type Source interface {
 	Int63() int64
 	Seed(seed int64)
 }
 
-// getter for our new source
+// Src gets the current source.
 func Src() Source {
 	return src
 }
 
-// rand function, using byte optimization, using almost all the
-// 64 bits of the src.Int63() (by shifting them), in order to
-// minimize the number of calls
-func RandString(n int) string {
+// String generates a random string of length n.
+func String(n int) string {
 	a := make([]byte, n)
 	for i, cache, remain := n-1, src.Int63(), letterMax; i >= 0; {
 		if remain == 0 {
 			cache, remain = src.Int63(), letterMax
 		}
-		if idx := int(cache & letterIdMask); idx < len(lettDig) {
+		if idx := int(cache & letterIDMask); idx < len(lettDig) {
 			a[i] = lettDig[idx]
 			i--
 		}
-		cache >>= letterIdBits
+		cache >>= letterIDBits
 		remain--
 	}
 	return string(a)

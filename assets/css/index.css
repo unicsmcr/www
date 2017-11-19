@@ -8,7 +8,7 @@
     background-size: auto, cover;
     background-position: top left, center center;
     background-repeat: repeat, no-repeat;
-    box-shadow: inset 0px 0px 0px 50vh rgba(68, 0, 102, 0.5);
+    box-shadow: inset 0px 0px 0px 50vh rgba(17, 17, 17, 0.9);
     padding: 372px 0; padding: 38vh 0 30.5vh 0;
     height: 170px; height: 25vh;
     text-align: center;
@@ -49,7 +49,7 @@
 
 
     #mobile-menu {
-        background-color: #33004D;
+        background-color: #000;
         display: inherit;
         padding: 6% 0;
     }
@@ -64,7 +64,7 @@
             width: 48%;
             height: 32%;
             margin: 1%;
-            background-color: #609;
+            background-color: #222;
             background-size: 50%;
             background-position: 50% 30%;
             background-repeat: no-repeat;
@@ -73,7 +73,7 @@
         #tiles div {
             height: 20%;
             top: 80%;
-            background-color: #4D0073;
+            background-color: #151515;
             position: relative;
         }
 

@@ -6,5 +6,10 @@
     {
         "id": "stormforce",
         "url": "http://www.zoostorm.com/product-category-gaming/stormforce-gaming-pcs/"
+    },
+    {
+        "id": "love-pizza",
+        "description": "Pizza provided by",
+        "url": "http://lovepizza.com/"
     }
 ]

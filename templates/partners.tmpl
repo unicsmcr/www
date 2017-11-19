@@ -9,6 +9,9 @@
     <h1>Partners</h1>
     <div class="sponsors">
       {{ range . }}
+        {{ if .Description }}
+          <p>{{ .Description }}</p>
+        {{ end }}
         <a href="{{ .URL }}" target="_blank">
           <img class="sponsor" src="assets/images/partners/{{ .ID }}.png" alt="{{ .ID }}">
         </a>

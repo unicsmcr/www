@@ -1,6 +1,6 @@
 # HackSoc Web Application
 
-The official website of [HackSoc](http://hacksoc.com/) from The University of Manchester. We also have a [Facebook page](https://www.facebook.com/groups/HackSocManc/).
+The official website of [HackSoc](http://hacksoc.com/) from The University of Manchester. We also have a [Facebook](https://www.facebook.com/groups/HackSocManc/) and [LinkedIn](https://www.linkedin.com/company-beta/17980188/) page!
 
 ### Getting Started
 
@@ -9,7 +9,7 @@ Follow these instructions to run the website on your local machine.
 ### Prerequisites
 
 #### Required
-* The Go distribution [here](https://golang.org/doc/install).
+* Download and install the Go distribution from [here](https://golang.org/doc/install).
 
 #### Optional
 * Enabling reCAPTCHA requires a secret key and a site key. The first two steps of [this tutorial](https://webdesign.tutsplus.com/tutorials/how-to-integrate-no-captcha-recaptcha-in-your-website--cms-23024) explain how to get them.
@@ -56,7 +56,7 @@ $ go test ./...
 
 ### Authors
 
-See the list of contributors [here](https://github.com/hacksoc-manchester/www/graphs/contributors).
+See the [CONTRIBUTORS](CONTRIBUTORS) file.
 
 ### License
 

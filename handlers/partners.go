@@ -9,8 +9,9 @@ import (
 )
 
 var sponsors []struct {
-	ID  string
-	URL string
+	ID          string
+	URL         string
+	Description string
 }
 
 func init() {

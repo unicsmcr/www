@@ -44,6 +44,11 @@
     }
 
 
+.separator {
+    padding: 15px 0px;
+}
+
+
 /* Mobile */
 @media screen and (max-width: 736px) {
     .members {

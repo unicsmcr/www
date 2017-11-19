@@ -3,13 +3,15 @@ package databaseService
 import (
 	"database/sql"
 	"errors"
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/hacksoc-manchester/www/helpers/validator"
 	"log"
 	"os"
+
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/hacksoc-manchester/www/helpers/validator"
 )
 
-type userEntry struct {
+// UserEntry is a row from the "User" table.
+type UserEntry struct {
 	FirstName            string
 	LastName             string
 	Email                string
@@ -46,7 +48,7 @@ func CreateUser(firstName, lastName, email string, subscribedToArticles, subscri
 		return errors.New(`Email "` + email + `" is not valid.`)
 	}
 
-	stmt, _ := db.Prepare(`insert into User(FirstName, LastName, Email, SubscribedToArticles, SubscribedToEvents)
+	stmt, _ := db.Prepare(`insert into user(FirstName, LastName, Email, SubscribedToArticles, SubscribedToEvents)
 		values (?, ?, ?, ?, ?)`)
 
 	if _, err := stmt.Exec(firstName, lastName, email, subscribedToArticles, subscribedToEvents); err != nil {
@@ -57,9 +59,9 @@ func CreateUser(firstName, lastName, email string, subscribedToArticles, subscri
 }
 
 // GetUser retrieves the user with the specified email.
-func GetUser(email string) (*userEntry, error) {
-	stmt, _ := db.Prepare("select * from User where Email = ?")
-	user := new(userEntry)
+func GetUser(email string) (*UserEntry, error) {
+	stmt, _ := db.Prepare("select * from user where Email = ?")
+	user := new(UserEntry)
 	err := stmt.QueryRow(email).Scan(
 		&user.FirstName,
 		&user.LastName,
@@ -83,7 +85,7 @@ func ExistsUser(email string) bool {
 
 // DeleteUser removes the specified entry from the User table.
 func DeleteUser(email string) error {
-	stmt, _ := db.Prepare("delete from User where Email = ?")
+	stmt, _ := db.Prepare("delete from user where Email = ?")
 
 	if _, err := stmt.Exec(email); err != nil {
 		return errors.New(`Could not delete user with email "` + email + `".`)

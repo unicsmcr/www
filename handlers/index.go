@@ -1,8 +1,9 @@
 package handlers
 
 import (
-	"github.com/hacksoc-manchester/www/services/eventService"
 	"net/http"
+
+	"github.com/hacksoc-manchester/www/services/eventService"
 )
 
 type indexModel struct {

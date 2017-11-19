@@ -1,9 +1,10 @@
 package validator
 
 import (
-	"github.com/hacksoc-manchester/www/helpers/rand"
 	"strings"
 	"testing"
+
+	"github.com/hacksoc-manchester/www/helpers/rand"
 )
 
 type testCase struct {
@@ -12,31 +13,31 @@ type testCase struct {
 }
 
 var emailTests = []testCase{
-	{rand.RandString(91) + "@" + rand.RandString(4) + "." + rand.RandString(3), true},
-	{rand.RandString(50) + "@gmail.com", true},
-	{rand.RandString(10) + "@" + rand.RandString(5) + "." + rand.RandString(3), true},
-	{rand.RandString(20), false},
-	{rand.RandString(99), false},
-	{rand.RandString(50) + "@" + rand.RandString(10), false},
-	{rand.RandString(10) + "." + rand.RandString(4), false},
-	{rand.RandString(100), false},
+	{rand.String(91) + "@" + rand.String(4) + "." + rand.String(3), true},
+	{rand.String(50) + "@gmail.com", true},
+	{rand.String(10) + "@" + rand.String(5) + "." + rand.String(3), true},
+	{rand.String(20), false},
+	{rand.String(99), false},
+	{rand.String(50) + "@" + rand.String(10), false},
+	{rand.String(10) + "." + rand.String(4), false},
+	{rand.String(100), false},
 }
 
 var messageTests = []testCase{
-	{rand.RandString(3999), true},
-	{rand.RandString(int(rand.Src().Int63() % 400)), true},
-	{strings.Repeat(" ", 50) + rand.RandString(1), true},
-	{strings.Repeat(" ", 50) + rand.RandString(3950), true},
-	{rand.RandString(4001), false},
+	{rand.String(3999), true},
+	{rand.String(int(rand.Src().Int63() % 400)), true},
+	{strings.Repeat(" ", 50) + rand.String(1), true},
+	{strings.Repeat(" ", 50) + rand.String(3950), true},
+	{rand.String(4001), false},
 	{strings.Repeat(" ", 100), false},
 }
 
 var nameTests = []testCase{
-	{rand.RandString(29), true},
-	{rand.RandString(1), true},
-	{rand.RandString(1) + strings.Repeat(" ", 29), true},
-	{rand.RandString(1) + strings.Repeat(" ", 30), false},
-	{rand.RandString(31), false},
+	{rand.String(29), true},
+	{rand.String(1), true},
+	{rand.String(1) + strings.Repeat(" ", 29), true},
+	{rand.String(1) + strings.Repeat(" ", 30), false},
+	{rand.String(31), false},
 	{strings.Repeat(" ", int(rand.Src().Int63()%31)), false},
 }
 
