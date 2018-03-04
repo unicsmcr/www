@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/hacksoc-manchester/www/config"
 	"github.com/hacksoc-manchester/www/handlers"
 )
 
