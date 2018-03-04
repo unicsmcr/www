@@ -7,20 +7,62 @@
 {{ define "content" }}
   <section id="events">
     <h1>Events</h1>
-    <ul>
-      {{ range . }}
-        {{ if .Upcoming }}<li class="upcoming">{{ else }}<li>{{ end }}
-          <a class="event" href="{{ .URL }}">
-            <img src="{{ .ImageURL }}">
-              <div class="description">
-                <h2>{{ .Name }}</h2>
-                <p class="location">{{ .Location }}</p>
-                <p class="date">{{ .Date }}</p>
-              </div>
-            </img>
-          </a>
-        </li>
+
+    {{if .HaveRightNow}}
+        <h2>Right now</h2>
+        <hr/>
+        <ul>
+          {{ range .EventGroup.RightNow }}
+            <li>
+              <a class="event" href="{{ .URL }}">
+                <img src="{{ .ImageURL }}">
+                  <div class="description">
+                    <h2>{{ .Name }}</h2>
+                    <p class="location">{{ .Location }}</p>
+                    <p> {{ .AttendingCount }} attending </p>
+                  </div>
+              </a>
+            </li>
+          {{ end }}
+        </ul>
+    {{end}}
+
+
+  {{if .HaveUpcoming}}
+      <h2>Upcoming</h2>
+      <hr/>
+      <ul>
+      {{ range .EventGroup.Upcoming }}
+          <li>
+              <a class="event" href="{{ .URL }}">
+                  <img src="{{ .ImageURL }}">
+                  <div class="description">
+                      <h2>{{ .Name }}</h2>
+                      <p class="location">{{ .Location }}</p>
+                      <p> {{ .AttendingCount }} attending </p>
+                  </div>
+              </a>
+          </li>
       {{ end }}
-    </ul>
+      </ul>
+  {{end}}
+
+      <h2>Past events</h2>
+      <hr/>
+      <ul>
+      {{ range .EventGroup.Past }}
+          <li>
+              <a class="event" href="{{ .URL }}">
+                  <img src="{{ .ImageURL }}">
+                  <div class="description">
+                      <h2>{{ .Name }}</h2>
+                      <p class="location">{{ .Location }}</p>
+                      <p> {{ .AttendingCount }} attending </p>
+                  </div>
+              </a>
+          </li>
+      {{ end }}
+      </ul>
   </section>
-{{ end }}
+
+{{end}}

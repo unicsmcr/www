@@ -3,26 +3,32 @@ package eventService
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/patrickmn/go-cache"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
+	"time"
 )
 
 // An Event represents a HackSoc event.
 type Event struct {
-	Name        string
-	Description string
-	Location    string
-	Date        string
-	URL         string
-	ImageURL    string
-	Upcoming    bool
+	Name           string
+	Description    string
+	Location       string
+	URL            string
+	ImageURL       string
+	Upcoming       bool
+	AttendingCount int
+	StartTime      time.Time
+	EndTime        time.Time
 }
 
 const fbGraphApiUrl = "https://graph.facebook.com/oauth/access_token"
 
 var accessToken string
+
+var eventsCache *cache.Cache
 
 func init() {
 	if os.Getenv("FB_APP_ID") == "" {
@@ -36,6 +42,17 @@ func init() {
 	}
 
 	accessToken = getAccessToken()
+	eventsCache = cache.New(10*time.Minute, 10*time.Minute)
+
+	eventsCache.Set("events", getEvents(), cache.DefaultExpiration)
+	log.Println("Save in cache.")
+	go func() {
+		for {
+			time.Sleep(1 * time.Minute)
+			eventsCache.Set("events", getEvents(), cache.DefaultExpiration)
+			log.Println("Update cache!")
+		}
+	}()
 }
 
 // getAccessToken gets a suitable Facebook GraphAPI access token.
@@ -62,12 +79,12 @@ func requestWithData(method, url string, data map[string]string, useToken bool) 
 	return request
 }
 
-// GetEvents gets the events.
-func GetEvents() []*Event {
+// getEvents gets the events.
+func getEvents() []*Event {
 
 	req := requestWithData("GET",
 		"https://graph.facebook.com/v2.12/hacksocmcr/events", map[string]string{
-			"fields": "name,description,cover,place,start_time",
+			"fields": "name,description,cover,place,start_time,end_time,attending_count",
 		}, true)
 
 	client := &http.Client{}
@@ -80,13 +97,18 @@ func GetEvents() []*Event {
 	type EventEntry struct {
 		Name        string `json:"name"`
 		Description string `json:"description"`
-		Cover       struct {
+
+		StartTime string `json:"start_time"`
+		EndTime   string `json:"end_time"`
+
+		AttendingCount int `json:"attending_count"`
+
+		Cover struct {
 			Source string `json:"source"`
 		} `json:"cover"`
 		Place struct {
 			Name string `json:"name"`
 		} `json:"place"`
-		StartTime string `json:"start_time"`
 	}
 
 	type BodyData struct {
@@ -100,38 +122,69 @@ func GetEvents() []*Event {
 		log.Println(err)
 	}
 
-	events := []*Event{}
+	events := make([]*Event, 0)
 
 	for _, event := range data.Data {
+		layout := "2006-01-02T15:04:05-0700"
+		startTime, err := time.Parse(layout, event.StartTime)
+		if err != nil {
+			log.Println(err)
+		}
+
+		endTime, err := time.Parse(layout, event.EndTime)
+		if err != nil {
+			log.Println(err)
+		}
+
+		today := time.Now()
+		upcoming := startTime.After(today)
+
 		events = append(events, &Event{
 			event.Name,
 			event.Description,
 			event.Place.Name,
-			event.StartTime,
 			"",
 			event.Cover.Source,
-			false})
+			upcoming,
+			event.AttendingCount,
+			startTime,
+			endTime,
+		})
 	}
 
 	return events
 }
 
-// GetUpcomingEvents gets the upcoming events.
-func GetUpcomingEvents() []*Event {
-	var upcomingEvents []*Event
+type EventGroup struct {
+	RightNow []*Event
+	Upcoming []*Event
+	Past     []*Event
+}
 
-	for _, event := range GetEvents() {
+func getEventsFromCache() ([]*Event, bool) {
+	events, found := eventsCache.Get("events")
+	log.Println("Get from cache!")
+
+	return events.([]*Event), found
+}
+
+// GroupEvents groups the events by 'right now', 'upcoming', and 'past'
+func GroupEvents() (*EventGroup, error) {
+	events, _ := getEventsFromCache()
+
+	eventGroup := &EventGroup{}
+	eventGroup.RightNow = make([]*Event, 0)
+	eventGroup.Upcoming = make([]*Event, 0)
+	eventGroup.Past = make([]*Event, 0)
+
+	for _, event := range events {
+		// (todo:Alex) Add "RightNow" events
 		if event.Upcoming {
-			upcomingEvents = append(upcomingEvents, event)
+			eventGroup.Upcoming = append(eventGroup.Upcoming, event)
+		} else {
+			eventGroup.Past = append(eventGroup.Past, event)
 		}
 	}
 
-	return upcomingEvents
-}
-
-// GetUpcomingEvent gets the earliest upcoming event.
-func GetUpcomingEvent() *Event {
-	upcomingEvents := GetUpcomingEvents()
-
-	return upcomingEvents[len(upcomingEvents)-1]
+	return eventGroup, nil
 }

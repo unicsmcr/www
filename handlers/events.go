@@ -1,13 +1,31 @@
 package handlers
 
 import (
-	"net/http"
 	"github.com/alexdmtr/www/services/eventService"
+	"log"
+	"net/http"
 )
 
 func events(w http.ResponseWriter, r *http.Request) {
 
-	events := eventService.GetEvents()
+	var eventsContext struct {
+		EventGroup   *eventService.EventGroup
+		HaveRightNow bool
+		HaveUpcoming bool
+	}
+	eventGroup, err := eventService.GroupEvents()
 
-	templates["events"].ExecuteTemplate(w, "layout", &events)
+	if err != nil {
+		log.Println(err)
+	}
+
+	eventsContext.EventGroup = eventGroup
+	eventsContext.HaveRightNow = len(eventGroup.RightNow) > 0
+	eventsContext.HaveUpcoming = len(eventGroup.Upcoming) > 0
+
+	err = templates["events"].ExecuteTemplate(w, "layout", eventsContext)
+
+	if err != nil {
+		log.Println(err)
+	}
 }
