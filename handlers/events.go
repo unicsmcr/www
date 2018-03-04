@@ -2,9 +2,12 @@ package handlers
 
 import (
 	"net/http"
+	"github.com/alexdmtr/www/services/eventService"
 )
 
 func events(w http.ResponseWriter, r *http.Request) {
-	// TODO(andrei): Finish the events page.
-	templates["comingsoon"].ExecuteTemplate(w, "layout", nil)
+
+	events := eventService.GetEvents()
+
+	templates["events"].ExecuteTemplate(w, "layout", &events)
 }
