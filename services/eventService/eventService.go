@@ -179,10 +179,6 @@ func GroupEvents() (*EventGroup, error) {
 		upcoming := event.StartTime.After(now)
 		rightNow := event.StartTime.Before(now) && event.EndTime.After(now)
 
-		log.Println(event.StartTime.String())
-		log.Println(event.EndTime.String())
-		log.Println(now.String())
-
 		if rightNow {
 			eventGroup.RightNow = append(eventGroup.RightNow, event)
 		} else if upcoming {
