@@ -18,13 +18,12 @@ type Event struct {
 	Location       string
 	URL            string
 	ImageURL       string
-	Upcoming       bool
 	AttendingCount int
 	StartTime      time.Time
 	EndTime        time.Time
 }
 
-const fbGraphApiUrl = "https://graph.facebook.com/oauth/access_token"
+const timeFormatLayout = "2006-01-02T15:04:05-0700"
 
 var accessToken string
 
@@ -95,6 +94,7 @@ func getEvents() []*Event {
 	body, _ := ioutil.ReadAll(response.Body)
 
 	type EventEntry struct {
+		ID          string `json:"id"`
 		Name        string `json:"name"`
 		Description string `json:"description"`
 
@@ -125,27 +125,23 @@ func getEvents() []*Event {
 	events := make([]*Event, 0)
 
 	for _, event := range data.Data {
-		layout := "2006-01-02T15:04:05-0700"
-		startTime, err := time.Parse(layout, event.StartTime)
+		startTime, err := time.Parse(timeFormatLayout, event.StartTime)
+
 		if err != nil {
 			log.Println(err)
 		}
 
-		endTime, err := time.Parse(layout, event.EndTime)
+		endTime, err := time.Parse(timeFormatLayout, event.EndTime)
 		if err != nil {
 			log.Println(err)
 		}
-
-		today := time.Now()
-		upcoming := startTime.After(today)
 
 		events = append(events, &Event{
 			event.Name,
 			event.Description,
 			event.Place.Name,
-			"",
+			"https://facebook.com/" + event.ID,
 			event.Cover.Source,
-			upcoming,
 			event.AttendingCount,
 			startTime,
 			endTime,
@@ -177,9 +173,19 @@ func GroupEvents() (*EventGroup, error) {
 	eventGroup.Upcoming = make([]*Event, 0)
 	eventGroup.Past = make([]*Event, 0)
 
+	now := time.Now()
+
 	for _, event := range events {
-		// (todo:Alex) Add "RightNow" events
-		if event.Upcoming {
+		upcoming := event.StartTime.After(now)
+		rightNow := event.StartTime.Before(now) && event.EndTime.After(now)
+
+		log.Println(event.StartTime.String())
+		log.Println(event.EndTime.String())
+		log.Println(now.String())
+
+		if rightNow {
+			eventGroup.RightNow = append(eventGroup.RightNow, event)
+		} else if upcoming {
 			eventGroup.Upcoming = append(eventGroup.Upcoming, event)
 		} else {
 			eventGroup.Past = append(eventGroup.Past, event)
