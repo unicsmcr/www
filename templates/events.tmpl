@@ -8,61 +8,65 @@
   <section id="events">
     <h1>Events</h1>
 
+      <div class="event-group">
+
     {{if .HaveRightNow}}
         <h2>Right now</h2>
         <hr/>
-        <ul>
+        <div class="event-list">
           {{ range .EventGroup.RightNow }}
-            <li>
-              <a class="event" href="{{ .URL }}">
-                <img src="{{ .ImageURL }}">
-                  <div class="description">
-                    <h2>{{ .Name }}</h2>
-                    <p class="location">{{ .Location }}</p>
-                    <p> {{ .AttendingCount }} attending </p>
-                  </div>
-              </a>
-            </li>
+            <div class="event" >
+                <div class="event-box">
+                      <a href="{{ .URL }}">
+                        <img src="{{ .ImageURL }}">
+                          <div class="event-description">
+                            <p class="event-name">{{ .Name }}</p>
+                          </div>
+                      </a>
+                </div>
+            </div>
           {{ end }}
-        </ul>
+        </div>
     {{end}}
 
 
   {{if .HaveUpcoming}}
       <h2>Upcoming</h2>
       <hr/>
-      <ul>
+      <div class="event-list">
       {{ range .EventGroup.Upcoming }}
-          <li>
-              <a class="event" href="{{ .URL }}">
-                  <img src="{{ .ImageURL }}">
-                  <div class="description">
-                      <h2>{{ .Name }}</h2>
-                      <p class="location">{{ .Location }}</p>
-                      <p> {{ .AttendingCount }} attending </p>
-                  </div>
-              </a>
-          </li>
+          <div class="event" >
+              <div class="event-box">
+                  <a href="{{ .URL }}">
+                      <img src="{{ .ImageURL }}">
+                      <div class="event-description">
+                          <p class="event-name">{{ .Name }}</p>
+                      </div>
+                  </a>
+              </div>
+          </div>
       {{ end }}
-      </ul>
+      </div>
   {{end}}
 
       <h2>Past events</h2>
       <hr/>
-      <ul>
+      <div class="event-list">
       {{ range .EventGroup.Past }}
-          <li>
-              <a class="event" href="{{ .URL }}">
-                  <img src="{{ .ImageURL }}">
-                  <div class="description">
-                      <h2>{{ .Name }}</h2>
-                      <p class="location">{{ .Location }}</p>
-                      <p> {{ .AttendingCount }} attending </p>
-                  </div>
-              </a>
-          </li>
+          <div class="event" >
+              <div class="event-box">
+                  <a href="{{ .URL }}">
+                      <img src="{{ .ImageURL }}">
+                      <div class="event-description">
+                          <p class="event-name">{{ .Name }}</p>
+                      </div>
+                  </a>
+              </div>
+          </div>
       {{ end }}
-      </ul>
+      </div>
+
+      </div>
   </section>
 
 {{end}}
