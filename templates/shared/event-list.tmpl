@@ -1,0 +1,30 @@
+{{ define "event-list" }}
+    <div class="event-list">
+
+        {{ range . }}
+            <div class="event" >
+                <a href="{{ .URL }}" class="event-box">
+                    <div class="event-figure">
+                        <img src="{{.ImageURL}}" class="event-img"/>
+                    </div>
+                    <div class="event-details">
+                        <h2 class="event-date">{{ .GetShortDate }}</h2>
+
+                        <h3 class="event-name">{{ .Name }}</h3>
+
+                        <p class="event-location"> {{.Location}}</p>
+
+                    </div>
+                    <div class="event-footer">
+
+                        <img src="assets/images/social-media/facebook.svg" alt="Facebook" class="event-facebook">
+                        <span class="event-attendees"> {{ .AttendingCount }} attendees</span>
+
+                    </div>
+                </a>
+            </div>
+
+        {{end}}
+    </div>
+
+{{end}}

@@ -23,6 +23,29 @@ type Event struct {
 	EndTime        time.Time
 }
 
+func (e *Event) GetShortDate() string {
+	if e.StartTime.Year() == time.Now().Year() && e.StartTime.After(time.Now()) {
+		startTime := e.StartTime.Format("January 2")
+		if e.StartTime.YearDay() != e.EndTime.YearDay() {
+			if e.StartTime.Month() == e.EndTime.Month() {
+				return fmt.Sprintf("%s - %s", startTime, e.EndTime.Format("2"))
+			}
+			var endTime string
+
+			if e.EndTime.Year() == time.Now().Year() {
+				endTime = e.EndTime.Format("January 2")
+			} else {
+				endTime = e.EndTime.Format("January 2, 2006")
+			}
+
+			return fmt.Sprintf("%s - %s", startTime, endTime)
+		} else {
+			return startTime
+		}
+	}
+	return e.StartTime.Format("January 2, 2006")
+}
+
 const timeFormatLayout = "2006-01-02T15:04:05-0700"
 
 var accessToken string
@@ -77,6 +100,8 @@ func requestWithData(method, url string, data map[string]string, useToken bool) 
 
 	return request
 }
+
+const MAX_SHORTNAME_LENGTH = 30
 
 // getEvents gets the events.
 func getEvents() []*Event {
