@@ -23,10 +23,15 @@ func main() {
 		log.Fatal(err)
 	}
 
+	var err error
 	// Start the server.
 	if os.Getenv("HTTP_PLATFORM_PORT") != "" {
-		http.ListenAndServe(":"+os.Getenv("HTTP_PLATFORM_PORT"), nil)
+		err = http.ListenAndServe(":"+os.Getenv("HTTP_PLATFORM_PORT"), nil)
 	} else {
-		http.ListenAndServe(":8080", nil)
+		err = http.ListenAndServe(":8080", nil)
+	}
+
+	if err != nil {
+		log.Fatal(err)
 	}
 }
