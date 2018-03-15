@@ -24,6 +24,9 @@
     height: 40px;
     text-align: initial;
     border-top: 1px solid #EFF2F5;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .event-date {
@@ -65,8 +68,13 @@
 .event-facebook {
     margin: 0 5px 0 0;
     width: 21px;
-    height: 35px;
-    float: right;
+    height: 21px;
+}
+
+.event-facebook-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .event-list {

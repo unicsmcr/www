@@ -3,30 +3,25 @@
 
         {{ range . }}
             <div class="event" >
-                <div class="event-box">
+                <a href="{{ .URL }}" class="event-box">
                     <div class="event-figure">
-                        <a href="{{ .URL }}">
                             <img src="{{.ImageURL}}" class="event-img"/>
-                        </a>
                     </div>
                     <div class="event-details">
-                        <a href="{{ .URL }}">
                             <h2 class="event-date">{{ .GetShortDate }}</h2>
 
                             <h3 class="event-name">{{ .Name }}</h3>
 
 
                             <p class="event-location"> {{.Location}}</p>
-                        </a>
                     </div>
                     <div class="event-footer">
-
-                        <!-- todo(alex): Credit author <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div> -->
-                        <img src="assets/images/social-media/facebook-grey.svg" alt="Facebook" class="event-facebook">
-                        <span class="event-attendees"> {{ .AttendingCount }} attendees</span>
-
+                          <span class="event-attendees"> {{ .GetInterestLine }} </span>
+                          <span class="event-facebook-wrap">
+                            <img src="assets/images/social-media/facebook-grey.png" alt="Facebook" class="event-facebook">
+                          </span>
                     </div>
-                </div>
+                </a>
             </div>
 
         {{end}}

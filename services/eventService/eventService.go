@@ -13,14 +13,23 @@ import (
 
 // An Event represents a HackSoc event.
 type Event struct {
-	Name           string
-	Description    string
-	Location       string
-	URL            string
-	ImageURL       string
-	AttendingCount int
-	StartTime      time.Time
-	EndTime        time.Time
+	Name            string
+	Description     string
+	Location        string
+	URL             string
+	ImageURL        string
+	AttendingCount  int
+	InterestedCount int
+	StartTime       time.Time
+	EndTime         time.Time
+}
+
+func (e *Event) GetInterestLine() string {
+	if e.StartTime.After(time.Now()) || e.EndTime.After(time.Now()) {
+		totalCount := e.AttendingCount + e.InterestedCount
+		return fmt.Sprintf("%d going or interested", totalCount)
+	}
+	return fmt.Sprintf("%d attended", e.AttendingCount)
 }
 
 func (e *Event) GetShortDate() string {
@@ -108,7 +117,7 @@ func getEvents() []*Event {
 
 	req := requestWithData("GET",
 		"https://graph.facebook.com/v2.12/hacksocmcr/events", map[string]string{
-			"fields": "name,description,cover,place,start_time,end_time,attending_count",
+			"fields": "name,description,cover,place,start_time,end_time,attending_count,interested_count",
 		}, true)
 
 	client := &http.Client{}
@@ -126,7 +135,8 @@ func getEvents() []*Event {
 		StartTime string `json:"start_time"`
 		EndTime   string `json:"end_time"`
 
-		AttendingCount int `json:"attending_count"`
+		AttendingCount  int `json:"attending_count"`
+		InterestedCount int `json:"interested_count"`
 
 		Cover struct {
 			Source string `json:"source"`
@@ -168,6 +178,7 @@ func getEvents() []*Event {
 			"https://facebook.com/" + event.ID,
 			event.Cover.Source,
 			event.AttendingCount,
+			event.InterestedCount,
 			startTime,
 			endTime,
 		})
