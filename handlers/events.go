@@ -17,6 +17,8 @@ func events(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		log.Println(err)
+		errorHandler(w, r, http.StatusServiceUnavailable)
+		return
 	}
 
 	eventsContext.EventGroup = eventGroup

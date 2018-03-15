@@ -73,17 +73,9 @@ func init() {
 	}
 
 	accessToken = getAccessToken()
-	eventsCache = cache.New(10*time.Minute, 10*time.Minute)
+	eventsCache = cache.New(1*time.Minute, 0)
 
-	eventsCache.Set("events", getEvents(), cache.DefaultExpiration)
-	log.Println("Save in cache.")
-	go func() {
-		for {
-			time.Sleep(1 * time.Minute)
-			eventsCache.Set("events", getEvents(), cache.DefaultExpiration)
-			log.Println("Update cache!")
-		}
-	}()
+	loadEvents()
 }
 
 // getAccessToken gets a suitable Facebook GraphAPI access token.
@@ -113,7 +105,7 @@ func requestWithData(method, url string, data map[string]string, useToken bool) 
 const MAX_SHORTNAME_LENGTH = 30
 
 // getEvents gets the events.
-func getEvents() []*Event {
+func getEvents() ([]*Event, error) {
 
 	req := requestWithData("GET",
 		"https://graph.facebook.com/v2.12/hacksocmcr/events", map[string]string{
@@ -121,11 +113,19 @@ func getEvents() []*Event {
 		}, true)
 
 	client := &http.Client{}
-	response, _ := client.Do(req)
+	response, err := client.Do(req)
+
+	if err != nil {
+		return nil, err
+	}
 
 	defer response.Body.Close()
 
-	body, _ := ioutil.ReadAll(response.Body)
+	body, err := ioutil.ReadAll(response.Body)
+
+	if err != nil {
+		return nil, err
+	}
 
 	type EventEntry struct {
 		ID          string `json:"id"`
@@ -151,10 +151,10 @@ func getEvents() []*Event {
 	}
 
 	var data BodyData
-	err := json.Unmarshal(body, &data)
+	err = json.Unmarshal(body, &data)
 
 	if err != nil {
-		log.Println(err)
+		return nil, err
 	}
 
 	events := make([]*Event, 0)
@@ -184,7 +184,7 @@ func getEvents() []*Event {
 		})
 	}
 
-	return events
+	return events, nil
 }
 
 type EventGroup struct {
@@ -193,16 +193,38 @@ type EventGroup struct {
 	Past     []*Event
 }
 
-func getEventsFromCache() ([]*Event, bool) {
-	events, found := eventsCache.Get("events")
-	log.Println("Get from cache!")
+func loadEvents() ([]*Event, error) {
+	events, err := getEvents()
 
-	return events.([]*Event), found
+	if err != nil {
+		log.Println(err)
+		return nil, err
+	} else {
+		eventsCache.Set("events", events, cache.DefaultExpiration)
+		return events, nil
+	}
+}
+func getEventsFromCache() ([]*Event, error) {
+	events, expiration, found := eventsCache.GetWithExpiration("events")
+
+	if !found || !(time.Now().Before(expiration)) {
+		var err error
+		events, err = loadEvents()
+
+		if err != nil {
+			return nil, err
+		}
+	}
+	return events.([]*Event), nil
 }
 
 // GroupEvents groups the events by 'right now', 'upcoming', and 'past'
 func GroupEvents() (*EventGroup, error) {
-	events, _ := getEventsFromCache()
+	events, err := getEventsFromCache()
+
+	if err != nil {
+		return nil, err
+	}
 
 	eventGroup := &EventGroup{}
 	eventGroup.RightNow = make([]*Event, 0)
