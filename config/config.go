@@ -29,7 +29,7 @@ func CheckHaveenv(vars ...string) bool {
 	}
 
 	for _, envvar := range missing {
-		log.Printf("Environment variable %s is not assigned\n", envvar)
+		log.Printf("Environment variable %s is not assigned.\n", envvar)
 	}
 
 	return false
