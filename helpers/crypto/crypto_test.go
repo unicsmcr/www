@@ -3,7 +3,7 @@ package crypto
 import (
 	"testing"
 
-	"github.com/hacksoc-manchester/www/helpers/rand"
+	"github.com/alexdmtr/www/helpers/rand"
 )
 
 func TestCrypto(t *testing.T) {

@@ -3,7 +3,7 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/hacksoc-manchester/www/services/galleryService"
+	"github.com/alexdmtr/www/services/galleryService"
 )
 
 func gallery(w http.ResponseWriter, r *http.Request) {

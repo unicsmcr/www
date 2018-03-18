@@ -6,8 +6,8 @@ import (
 	"log"
 	"os"
 
+	"github.com/alexdmtr/www/helpers/validator"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/hacksoc-manchester/www/helpers/validator"
 )
 
 // UserEntry is a row from the "User" table.

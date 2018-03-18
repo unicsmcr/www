@@ -9,6 +9,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/alexdmtr/www/config"
 	"github.com/patrickmn/go-cache"
 )
 
@@ -58,13 +59,7 @@ var accessToken string
 var eventsCache *cache.Cache
 
 func init() {
-	if os.Getenv("FB_APP_ID") == "" {
-		log.Println("Environment variable FB_APP_ID is not assigned.")
-		return
-	}
-
-	if os.Getenv("FB_SECRET") == "" {
-		log.Println("Environment variable FB_SECRET is not assigned.")
+	if !config.CheckHaveenv("FB_APP_ID", "FB_SECRET") {
 		return
 	}
 

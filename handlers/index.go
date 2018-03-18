@@ -3,7 +3,7 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/hacksoc-manchester/www/services/eventService"
+	"github.com/alexdmtr/www/services/eventService"
 )
 
 type indexModel struct {

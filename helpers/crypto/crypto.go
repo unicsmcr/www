@@ -7,15 +7,15 @@ import (
 	"encoding/base64"
 	"errors"
 	"io"
-	"log"
 	"os"
+
+	"github.com/alexdmtr/www/config"
 )
 
 var block cipher.Block
 
 func init() {
-	if os.Getenv("SYMMETRIC_KEY") == "" {
-		log.Println("Environment variable SYMMETRIC_KEY is not assigned")
+	if !config.CheckHaveenv("SYMMETRIC_KEY") {
 		return
 	}
 	if err := SetSymmetricKey(os.Getenv("SYMMETRIC_KEY")); err != nil {

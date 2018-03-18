@@ -5,10 +5,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"net/url"
 	"os"
+
+	"github.com/alexdmtr/www/config"
 )
 
 // An Album represents a HackSoc album.
@@ -24,13 +25,7 @@ var albums []map[string]string
 const flickrAPIURL = "https://api.flickr.com/services/rest"
 
 func init() {
-	if os.Getenv("FLICKR_API_KEY") == "" {
-		log.Println("Environment variable FLICKR_API_KEY is not assigned.")
-		return
-	}
-
-	if os.Getenv("FLICKR_USER_ID") == "" {
-		log.Println("Environment variable FLICKR_USER_ID is not assigned.")
+	if !config.CheckHaveenv("FLICKR_API_KEY", "FLICKR_USER_ID") {
 		return
 	}
 
