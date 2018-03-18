@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/alexdmtr/www/helpers/crypto"
-	"github.com/alexdmtr/www/services/databaseService"
-	"github.com/alexdmtr/www/services/emailService"
+	"github.com/hacksoc-manchester/www/helpers/crypto"
+	"github.com/hacksoc-manchester/www/services/databaseService"
+	"github.com/hacksoc-manchester/www/services/emailService"
 )
 
 func signUp(w http.ResponseWriter, r *http.Request) {

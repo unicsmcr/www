@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/alexdmtr/www/services/eventService"
+	"github.com/hacksoc-manchester/www/services/eventService"
 )
 
 func events(w http.ResponseWriter, r *http.Request) {

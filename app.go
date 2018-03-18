@@ -6,8 +6,8 @@ import (
 	"os"
 	"path/filepath"
 
-	_ "github.com/alexdmtr/www/config"
-	"github.com/alexdmtr/www/handlers"
+	_ "github.com/hacksoc-manchester/www/config"
+	"github.com/hacksoc-manchester/www/handlers"
 )
 
 func main() {

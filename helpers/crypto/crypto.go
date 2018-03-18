@@ -9,7 +9,7 @@ import (
 	"io"
 	"os"
 
-	"github.com/alexdmtr/www/config"
+	"github.com/hacksoc-manchester/www/config"
 )
 
 var block cipher.Block

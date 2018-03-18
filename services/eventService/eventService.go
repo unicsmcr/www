@@ -9,7 +9,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/alexdmtr/www/config"
+	"github.com/hacksoc-manchester/www/config"
 	"github.com/patrickmn/go-cache"
 )
 

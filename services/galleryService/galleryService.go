@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"os"
 
-	"github.com/alexdmtr/www/config"
+	"github.com/hacksoc-manchester/www/config"
 )
 
 // An Album represents a HackSoc album.

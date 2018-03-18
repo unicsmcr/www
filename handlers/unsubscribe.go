@@ -3,8 +3,8 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/alexdmtr/www/helpers/crypto"
-	"github.com/alexdmtr/www/services/databaseService"
+	"github.com/hacksoc-manchester/www/helpers/crypto"
+	"github.com/hacksoc-manchester/www/services/databaseService"
 )
 
 func unsubscribe(w http.ResponseWriter, r *http.Request) {
