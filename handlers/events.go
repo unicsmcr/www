@@ -27,8 +27,4 @@ func events(w http.ResponseWriter, r *http.Request) {
 	eventsContext.HaveUpcoming = len(eventGroup.Upcoming) > 0
 
 	renderTemplate(w, r, "events", eventsContext)
-
-	if err != nil {
-		log.Println(err)
-	}
 }
