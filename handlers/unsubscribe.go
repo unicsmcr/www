@@ -8,21 +8,23 @@ import (
 )
 
 func unsubscribe(w http.ResponseWriter, r *http.Request) {
+	handleUserError := func(message messageModel) {
+		renderTemplate(w, r, "message", message)
+	}
 	email, err := crypto.Decrypt(r.FormValue("token"))
 
 	if err != nil {
-		templates["message"].ExecuteTemplate(w, "layout", messageModel{"Error", "Token is invalid."})
+		handleUserError(messageModel{"Error", "Token is invalid."})
 		return
 	}
 
 	if !databaseService.ExistsUser(email) {
-		templates["message"].ExecuteTemplate(
-			w, "layout", messageModel{"Error", `Email "` + email + `" is not part of our mailing list.`})
+		handleUserError(messageModel{"Error", `Email "` + email + `" is not part of our mailing list.`})
 		return
 	}
 
 	if err := databaseService.DeleteUser(email); err != nil {
-		templates["message"].ExecuteTemplate(w, "layout", messageModel{"Error", "An unexpected error has occurred. Please try again later."})
+		handleUserError(messageModel{"Error", "An unexpected error has occurred. Please try again later."})
 		return
 	}
 
