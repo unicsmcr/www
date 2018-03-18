@@ -3,12 +3,13 @@ package eventService
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/patrickmn/go-cache"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/patrickmn/go-cache"
 )
 
 // An Event represents a HackSoc event.
@@ -39,18 +40,13 @@ func (e *Event) GetShortDate() string {
 			if e.StartTime.Month() == e.EndTime.Month() {
 				return fmt.Sprintf("%s - %s", startTime, e.EndTime.Format("2"))
 			}
-			var endTime string
-
+			endTime := e.EndTime.Format("January 2, 2006")
 			if e.EndTime.Year() == time.Now().Year() {
 				endTime = e.EndTime.Format("January 2")
-			} else {
-				endTime = e.EndTime.Format("January 2, 2006")
 			}
-
 			return fmt.Sprintf("%s - %s", startTime, endTime)
-		} else {
-			return startTime
 		}
+		return startTime
 	}
 	return e.StartTime.Format("January 2, 2006")
 }
@@ -102,8 +98,6 @@ func requestWithData(method, url string, data map[string]string, useToken bool) 
 	return request
 }
 
-const MAX_SHORTNAME_LENGTH = 30
-
 // getEvents gets the events.
 func getEvents() ([]*Event, error) {
 
@@ -117,6 +111,11 @@ func getEvents() ([]*Event, error) {
 
 	if err != nil {
 		return nil, err
+	}
+
+	if response.StatusCode < 200 || response.StatusCode > 299 {
+		return nil, fmt.Errorf("status code %s instead of 2xx Success",
+			response.Status)
 	}
 
 	defer response.Body.Close()
@@ -199,10 +198,10 @@ func loadEvents() ([]*Event, error) {
 	if err != nil {
 		log.Println(err)
 		return nil, err
-	} else {
-		eventsCache.Set("events", events, cache.DefaultExpiration)
-		return events, nil
 	}
+
+	eventsCache.Set("events", events, cache.DefaultExpiration)
+	return events, nil
 }
 func getEventsFromCache() ([]*Event, error) {
 	events, expiration, found := eventsCache.GetWithExpiration("events")

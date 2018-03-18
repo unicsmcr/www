@@ -19,11 +19,11 @@ func main() {
 	dir, _ := os.Getwd()
 	templateDirectory := filepath.Join(dir, "templates")
 
-	if err := handlers.Execute(templateDirectory); err != nil {
+	err := handlers.Execute(templateDirectory)
+	if err != nil {
 		log.Fatal(err)
 	}
 
-	var err error
 	// Start the server.
 	if os.Getenv("HTTP_PLATFORM_PORT") != "" {
 		err = http.ListenAndServe(":"+os.Getenv("HTTP_PLATFORM_PORT"), nil)
@@ -34,4 +34,5 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 }
