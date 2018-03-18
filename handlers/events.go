@@ -1,9 +1,10 @@
 package handlers
 
 import (
-	"github.com/alexdmtr/www/services/eventService"
 	"log"
 	"net/http"
+
+	"github.com/alexdmtr/www/services/eventService"
 )
 
 func events(w http.ResponseWriter, r *http.Request) {
@@ -25,7 +26,7 @@ func events(w http.ResponseWriter, r *http.Request) {
 	eventsContext.HaveRightNow = len(eventGroup.RightNow) > 0
 	eventsContext.HaveUpcoming = len(eventGroup.Upcoming) > 0
 
-	err = templates["events"].ExecuteTemplate(w, "layout", eventsContext)
+	renderTemplate(w, r, "events", eventsContext)
 
 	if err != nil {
 		log.Println(err)

@@ -31,7 +31,7 @@ func contact(w http.ResponseWriter, r *http.Request) {
 			response = "Turing test failed. Please try again."
 		}
 
-		templates["message"].ExecuteTemplate(w, "layout", messageModel{"Contact", response})
+		renderTemplate(w, r, "message", messageModel{"Contact", response})
 
 	default:
 		errorHandler(w, r, http.StatusBadRequest)

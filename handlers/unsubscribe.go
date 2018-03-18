@@ -26,6 +26,6 @@ func unsubscribe(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	templates["message"].ExecuteTemplate(
-		w, "layout", messageModel{"Unsubscribed", `Email "` + email + `" has been removed from our mailing list.`})
+	renderTemplate(
+		w, r, "message", messageModel{"Unsubscribed", `Email "` + email + `" has been removed from our mailing list.`})
 }

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"html/template"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -13,6 +14,8 @@ import (
 	"github.com/tdewolff/minify"
 	"github.com/tdewolff/minify/css"
 	"github.com/tdewolff/minify/html"
+
+	"github.com/oxtoacart/bpool"
 )
 
 type messageModel struct {
@@ -26,8 +29,13 @@ var reCaptcha = recaptcha.R{
 	Secret: os.Getenv("RECAPTCHA_SECRET_KEY"),
 }
 
+var bufpool *bpool.BufferPool
+
 var m = minify.New()
 
+func init() {
+	bufpool = bpool.NewBufferPool(64)
+}
 func compileTemplates(templatePaths ...string) (*template.Template, error) {
 	var tmpl *template.Template
 
@@ -81,6 +89,39 @@ func minifyCSSFiles(templateDirectory string) {
 			panic(err)
 		}
 	}
+}
+
+// renderTemplate is a wrapper around template.ExecuteTemplate.
+// It writes into a bytes.Buffer before writing to the http.ResponseWriter to catch
+// any errors resulting from populating the template.
+// It also includes custom error handling.
+func renderTemplate(w http.ResponseWriter, r *http.Request, name string, data interface{}) error {
+	handleError := func(err error) {
+		log.Println(err)
+		errorHandler(w, r, http.StatusInternalServerError)
+	}
+	// Ensure the template exists in the map.
+	tmpl, ok := templates[name]
+	if !ok {
+		err := fmt.Errorf("the template %s does not exist ", name)
+		handleError(err)
+		return err
+	}
+
+	// Create a buffer to temporarily write to and check if any errors were encounted.
+	buf := bufpool.Get()
+	defer bufpool.Put(buf)
+
+	err := tmpl.ExecuteTemplate(buf, "layout", data)
+	if err != nil {
+		handleError(err)
+		return err
+	}
+
+	// Set the header and write the buffer to the http.ResponseWriter
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	buf.WriteTo(w)
+	return nil
 }
 
 // Execute loads templates from the specified directory and configures routes.

@@ -31,5 +31,5 @@ func init() {
 }
 
 func team(w http.ResponseWriter, r *http.Request) {
-	templates["team"].ExecuteTemplate(w, "layout", &members)
+	renderTemplate(w, r, "team", &members)
 }

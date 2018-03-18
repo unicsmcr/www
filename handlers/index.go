@@ -20,5 +20,5 @@ func index(w http.ResponseWriter, r *http.Request) {
 	var model indexModel
 
 	model.HasUpcomingEvent = model.Event != nil
-	templates["index"].ExecuteTemplate(w, "layout", &model)
+	renderTemplate(w, r, "index", &model)
 }
