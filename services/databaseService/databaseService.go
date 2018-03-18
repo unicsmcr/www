@@ -3,9 +3,9 @@ package databaseService
 import (
 	"database/sql"
 	"errors"
-	"log"
 	"os"
 
+	"github.com/alexdmtr/www/config"
 	"github.com/alexdmtr/www/helpers/validator"
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -22,8 +22,7 @@ type UserEntry struct {
 var db *sql.DB
 
 func init() {
-	if os.Getenv("MYSQL_CONNECTION_STRING") == "" {
-		log.Println("Environment variable MYSQL_CONNECTION_STRING is not assigned.")
+	if !config.CheckHaveenv("MYSQL_CONNECTION_STRING") {
 		return
 	}
 
