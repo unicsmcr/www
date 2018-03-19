@@ -13,7 +13,7 @@ import (
 func signUp(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
-		templates["sign-up"].ExecuteTemplate(w, "layout", reCaptchaSiteKey)
+		renderTemplate(w, r, "sign-up", reCaptchaSiteKey)
 
 	case "POST":
 		firstName := r.PostFormValue("first-name")
@@ -36,7 +36,7 @@ func signUp(w http.ResponseWriter, r *http.Request) {
 			response = "Turing test failed. Please try again."
 		}
 
-		templates["message"].ExecuteTemplate(w, "layout", messageModel{"Sign Up", response})
+		renderTemplate(w, r, "message", messageModel{"Sign Up", response})
 
 	default:
 		errorHandler(w, r, http.StatusBadRequest)

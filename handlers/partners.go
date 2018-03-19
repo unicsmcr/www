@@ -26,5 +26,5 @@ func init() {
 }
 
 func partners(w http.ResponseWriter, r *http.Request) {
-	templates["partners"].ExecuteTemplate(w, "layout", &sponsors)
+	renderTemplate(w, r, "partners", &sponsors)
 }

@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
+	_ "github.com/hacksoc-manchester/www/config"
 	"github.com/hacksoc-manchester/www/handlers"
 )
 
@@ -18,14 +19,20 @@ func main() {
 	dir, _ := os.Getwd()
 	templateDirectory := filepath.Join(dir, "templates")
 
-	if err := handlers.Execute(templateDirectory); err != nil {
+	err := handlers.Execute(templateDirectory)
+	if err != nil {
 		log.Fatal(err)
 	}
 
 	// Start the server.
 	if os.Getenv("HTTP_PLATFORM_PORT") != "" {
-		http.ListenAndServe(":"+os.Getenv("HTTP_PLATFORM_PORT"), nil)
+		err = http.ListenAndServe(":"+os.Getenv("HTTP_PLATFORM_PORT"), nil)
 	} else {
-		http.ListenAndServe(":8080", nil)
+		err = http.ListenAndServe(":8080", nil)
 	}
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
 }
