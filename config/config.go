@@ -3,14 +3,27 @@ package config
 import (
 	"log"
 	"os"
+	"path/filepath"
+	"runtime"
 
 	"github.com/joho/godotenv"
 )
 
 func init() {
-	err := godotenv.Load()
+	err := godotenv.Load(".env")
 	if err != nil {
-		log.Fatal("Error loading .env file", err)
+		_, filename, _, ok := runtime.Caller(0)
+		if !ok {
+			log.Fatal("Error loading .env file ", "No caller information")
+		}
+
+		rootdir := filepath.Dir(filepath.Dir(filename))
+
+		err = godotenv.Load(filepath.Join(rootdir, ".env"))
+
+		if err != nil {
+			log.Fatal("Error loading .env file ", err)
+		}
 	}
 }
 
