@@ -12,11 +12,13 @@ import (
 func init() {
 	err := godotenv.Load(".env")
 	if err != nil {
+		// Poll runtime.Caller to find where config.go's path.
 		_, filename, _, ok := runtime.Caller(0)
 		if !ok {
 			log.Fatal("Error loading .env file ", "No caller information")
 		}
 
+		// Go one directory higher.
 		rootdir := filepath.Dir(filepath.Dir(filename))
 
 		err = godotenv.Load(filepath.Join(rootdir, ".env"))
