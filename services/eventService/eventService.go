@@ -27,11 +27,11 @@ type Event struct {
 }
 
 func (e *Event) GetInterestLine() string {
+	totalCount := e.AttendingCount + e.InterestedCount
 	if e.StartTime.After(time.Now()) || e.EndTime.After(time.Now()) {
-		totalCount := e.AttendingCount + e.InterestedCount
 		return fmt.Sprintf("%d going or interested", totalCount)
 	}
-	return fmt.Sprintf("%d attended", e.AttendingCount)
+	return fmt.Sprintf("%d went or interested", totalCount)
 }
 
 func (e *Event) GetShortDate() string {
