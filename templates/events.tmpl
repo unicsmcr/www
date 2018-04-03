@@ -11,19 +11,19 @@
         <div class="event-group">
 
             {{if .HaveRightNow}}
-                <h2>Right now</h2>
+                <h2>Ongoing Events</h2>
                 <hr/>
                 {{ template "event-list" .EventGroup.RightNow }}
             {{end}}
 
             {{if .HaveUpcoming}}
-              <h2>Upcoming</h2>
+              <h2>Upcoming Events</h2>
               <hr/>
             {{ template "event-list" .EventGroup.Upcoming }}
 
             {{end}}
 
-          <h2>Past events</h2>
+          <h2>Past Events</h2>
           <hr/>
           {{ template "event-list" .EventGroup.Past }}
 
