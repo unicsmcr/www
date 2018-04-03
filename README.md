@@ -28,18 +28,20 @@ $ go get github.com/hacksoc-manchester/www
 Make sure [Git is installed](http://git-scm.com/downloads) on your machine and referenced by your system's ```PATH```.
 
 #### Environment Variables
-Linux - Add the following to your relevant shell profile (a relog is required):
+Linux/MacOS - Add the following to the `.env` file in your project root (create it if it does not exist, but do *not* commit it)
 ```bash
-export HTTP_PLATFORM_PORT="default port is 8080"
-export NOREPLY_EMAIL="noreply email used by the SendGrid API"
-export CONTACT_EMAIL="contact email used by the SendGrid API"
-export SYMMETRIC_KEY="personal symmetric key (can be of length 16, 24 or 32). Longer keys are more secure"
-export RECAPTCHA_SITE_KEY="your reCAPTCHA site key"
-export RECAPTCHA_SECRET_KEY="your reCAPTCHA secret key"
-export MYSQL_CONNECTION_STRING="your MySQL connection string"
-export SENDGRID_API_KEY="your SendGrid API key"
+HTTP_PLATFORM_PORT="default port is 8080"
+NOREPLY_EMAIL="noreply email used by the SendGrid API"
+CONTACT_EMAIL="contact email used by the SendGrid API"
+SYMMETRIC_KEY="personal symmetric key (can be of length 16, 24 or 32). keys are more secure"
+RECAPTCHA_SITE_KEY="your reCAPTCHA site key"
+RECAPTCHA_SECRET_KEY="your reCAPTCHA secret key"
+MYSQL_CONNECTION_STRING="your MySQL connection string"
+SENDGRID_API_KEY="your SendGrid API key"
+FB_APP_ID="your Facebook app ID"
+FB_SECRET="your Facebook secret key"
 ```
-Windows - Add the same environment variables as above. Check [here](http://www.computerhope.com/issues/ch000549.htm) for help.
+Windows - Add the same environment variables as above. You may have to create a file called `.env.` in Windows Explorer for it to proper register the `.env` filename.
 
 #### Starting the Website
 Go to the ```hacksoc-manchester/www``` folder and run the following go command in your shell:
