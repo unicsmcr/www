@@ -21,7 +21,7 @@ func init() {
 		// Go one directory higher.
 		rootdir := filepath.Dir(filepath.Dir(filename))
 
-		// Look for ../.env
+		// Look for ../.env.
 		err = godotenv.Load(filepath.Join(rootdir, ".env"))
 
 		if err != nil {

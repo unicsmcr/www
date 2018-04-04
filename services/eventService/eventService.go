@@ -31,7 +31,7 @@ func (e *Event) GetInterestLine() string {
 	if e.StartTime.After(time.Now()) || e.EndTime.After(time.Now()) {
 		return fmt.Sprintf("%d going or interested", totalCount)
 	}
-	return fmt.Sprintf("%d went or interested", totalCount)
+	return fmt.Sprintf("%d went or were interested", totalCount)
 }
 
 func (e *Event) GetShortDate() string {

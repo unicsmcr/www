@@ -17,10 +17,9 @@
             {{end}}
 
             {{if .HaveUpcoming}}
-              <h2>Upcoming Events</h2>
-              <hr/>
+                <h2>Upcoming Events</h2>
+                <hr/>
             {{ template "event-list" .EventGroup.Upcoming }}
-
             {{end}}
 
           <h2>Past Events</h2>

@@ -44,6 +44,7 @@ section {
 
     section > h2 {
         font-size: 24px;
+        margin: 20px 0;
     }
     
 
@@ -164,6 +165,11 @@ footer {
 
         section > h1 {
             font-size: 20px;
+        }
+
+        section > h2 {
+            font-size: 17px;
+            margin: 18px 0 4px 0;
         }
 
 

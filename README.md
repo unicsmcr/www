@@ -41,7 +41,7 @@ SENDGRID_API_KEY="your SendGrid API key"
 FB_APP_ID="your Facebook app ID"
 FB_SECRET="your Facebook secret key"
 ```
-Windows - Add the same environment variables as above. You may have to create a file called `.env.` in Windows Explorer for it to proper register the `.env` filename.
+Windows - Add the same environment variables as above. You may have to create a file called `.env.` in Windows Explorer for it to correctly register the `.env` filename.
 
 #### Starting the Website
 Go to the ```hacksoc-manchester/www``` folder and run the following go command in your shell:
