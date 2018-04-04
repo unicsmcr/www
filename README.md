@@ -28,7 +28,8 @@ $ go get github.com/hacksoc-manchester/www
 Make sure [Git is installed](http://git-scm.com/downloads) on your machine and referenced by your system's ```PATH```.
 
 #### Environment Variables
-Linux/MacOS - Add the following to the `.env` file in your project root (create it if it does not exist, but do *not* commit it)
+Create a file called `.env` in the project root directory, and make sure it is added in `.gitignore`. (On Windows Explorer you may have to name the file `.env.`)
+Add the following environment variables to it:
 ```bash
 HTTP_PLATFORM_PORT="default port is 8080"
 NOREPLY_EMAIL="noreply email used by the SendGrid API"
@@ -41,7 +42,6 @@ SENDGRID_API_KEY="your SendGrid API key"
 FB_APP_ID="your Facebook app ID"
 FB_SECRET="your Facebook secret key"
 ```
-Windows - Add the same environment variables as above. You may have to create a file called `.env.` in Windows Explorer for it to correctly register the `.env` filename.
 
 #### Starting the Website
 Go to the ```hacksoc-manchester/www``` folder and run the following go command in your shell:
