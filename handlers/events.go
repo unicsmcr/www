@@ -11,7 +11,7 @@ func events(w http.ResponseWriter, r *http.Request) {
 
 	var eventsContext struct {
 		EventGroup   *eventService.EventGroup
-		HaveRightNow bool
+		HaveOngoing  bool
 		HaveUpcoming bool
 	}
 	eventGroup, err := eventService.GroupEvents()
@@ -23,7 +23,7 @@ func events(w http.ResponseWriter, r *http.Request) {
 	}
 
 	eventsContext.EventGroup = eventGroup
-	eventsContext.HaveRightNow = len(eventGroup.RightNow) > 0
+	eventsContext.HaveOngoing = len(eventGroup.Ongoing) > 0
 	eventsContext.HaveUpcoming = len(eventGroup.Upcoming) > 0
 
 	renderTemplate(w, r, "events", eventsContext)

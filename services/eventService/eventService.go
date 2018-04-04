@@ -182,7 +182,7 @@ func getEvents() ([]*Event, error) {
 }
 
 type EventGroup struct {
-	RightNow []*Event
+	Ongoing  []*Event
 	Upcoming []*Event
 	Past     []*Event
 }
@@ -221,7 +221,7 @@ func GroupEvents() (*EventGroup, error) {
 	}
 
 	eventGroup := &EventGroup{}
-	eventGroup.RightNow = make([]*Event, 0)
+	eventGroup.Ongoing = make([]*Event, 0)
 	eventGroup.Upcoming = make([]*Event, 0)
 	eventGroup.Past = make([]*Event, 0)
 
@@ -232,7 +232,7 @@ func GroupEvents() (*EventGroup, error) {
 		rightNow := event.StartTime.Before(now) && event.EndTime.After(now)
 
 		if rightNow {
-			eventGroup.RightNow = append(eventGroup.RightNow, event)
+			eventGroup.Ongoing = append(eventGroup.Ongoing, event)
 		} else if upcoming {
 			eventGroup.Upcoming = append(eventGroup.Upcoming, event)
 		} else {

@@ -10,10 +10,10 @@
 
         <div class="event-group">
 
-            {{if .HaveRightNow}}
+            {{if .HaveOngoing}}
                 <h2>Ongoing Events</h2>
                 <hr/>
-                {{ template "event-list" .EventGroup.RightNow }}
+                {{ template "event-list" .EventGroup.Ongoing }}
             {{end}}
 
             {{if .HaveUpcoming}}
