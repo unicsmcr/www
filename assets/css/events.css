@@ -4,82 +4,6 @@
     margin: 0 auto;
 }
 
-.event-box {
-    display: block;
-    color: inherit;
-    width: 100%;
-    height: 100%;
-}
-
-.event-details {
-    text-align: initial;
-    height: 110px;
-}
-
-.event-footer {
-    height: 40px;
-    text-align: initial;
-    border-top: 1px solid #EFF2F5;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.event-date {
-    text-transform: uppercase;
-    font-size: 12px;
-    padding: 10px 0 0 10px;
-    margin: 0;
-}
-
-.event-name {
-    font-size: 15px;
-    margin: 0;
-
-    font-weight: 400;
-    padding: 10px 0px 2.5px 10px;
-}
-
-.event-details > a:link {
-    color: inherit;
-}
-
-.event-details > a:visited {
-    color: inherit;
-}
-
-.event-location {
-    margin: 0;
-
-    padding: 0 0 0 10px;
-    font-size: 12px;
-}
-
-.event-attendees {
-    margin: 0;
-    padding: 10px;
-    font-size: 12px;
-}
-
-.event-facebook {
-    margin: 0 5px 0 0;
-    width: 21px;
-    height: 21px;
-}
-
-.event-facebook-wrap {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.event-list {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 0 15px 0 15px;
-}
 
 .event {
     width: 300px;
@@ -91,26 +15,96 @@
     transition: background-color 0.5s, box-shadow 0.5s;
 }
 
-.event:hover {
-    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 
-    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 
-    0px 1px 5px 0px rgba(0, 0, 0, 0.12);
-}
+    .event:hover {
+        box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 
+        0px 2px 2px 0px rgba(0, 0, 0, 0.14), 
+        0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+    }
 
-.event:hover .event-details {
-    background-color: rgb(248, 248, 248);    
-}
+    .event:hover .event-details {
+        background-color: rgb(248, 248, 248);    
+    }
 
-.event-figure {
-    height: 150px;
-}
+    .event-box {
+        display: block;
+        color: inherit;
+        width: 100%;
+        height: 100%;
+    }
 
-.event-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: center;
-}
+        .event-figure {
+            height: 150px;
+        }
+
+        .event-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: center;
+        }
+
+        .event-details {
+            text-align: initial;
+            height: 110px;
+        }
+
+            .event-details > a:link {
+                color: inherit;
+            }
+
+            .event-details > a:visited {
+                color: inherit;
+            }
+
+            .event-name {
+                font-size: 15px;
+                margin: 0;
+            
+                font-weight: 400;
+                padding: 10px 0px 2.5px 10px;
+            }
+
+            .event-date {
+                text-transform: uppercase;
+                font-size: 12px;
+                padding: 10px 0 0 10px;
+                margin: 0;
+            }
+
+            .event-location {
+                margin: 0;
+
+                padding: 0 0 0 10px;
+                font-size: 12px;
+            }
+
+
+        .event-footer {
+            height: 40px;
+            text-align: initial;
+            border-top: 1px solid #EFF2F5;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+            .event-attendees {
+                margin: 0;
+                padding: 10px;
+                font-size: 12px;
+            }
+
+            .event-facebook {
+                margin: 0 5px 0 0;
+                width: 21px;
+                height: 21px;
+            }
+
+            .event-facebook-wrap {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
 
 /* Mobile */
 @media screen and (max-width: 736px) {
