@@ -28,8 +28,8 @@ $ go get github.com/hacksoc-manchester/www
 Make sure [Git is installed](http://git-scm.com/downloads) on your machine and referenced by your system's ```PATH```.
 
 #### Environment Variables
-Create a file called `.env` in the project root directory, and make sure it is added in `.gitignore`. (On Windows Explorer you may have to name the file `.env.`)
-Add the following environment variables to it:
+Create a file called `.env` in the project root directory and make sure it's added in `.gitignore` (if using Windows, you might have to name it `.env.`). 
+Paste the following text in the file and edit the variable values sensibly:
 ```bash
 HTTP_PLATFORM_PORT="default port is 8080"
 NOREPLY_EMAIL="noreply email used by the SendGrid API"
