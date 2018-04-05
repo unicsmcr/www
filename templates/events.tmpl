@@ -8,26 +8,23 @@
   <section id="events">
     <h1>Events</h1>
 
-        <div class="event-group">
+    <div class="event-group">
+      {{if .HaveOngoing}}
+        <h2>Ongoing Events</h2>
+        <hr/>
+        {{ template "event-list" .EventGroup.Ongoing }}
+      {{end}}
 
-            {{if .HaveRightNow}}
-                <h2>Right now</h2>
-                <hr/>
-                {{ template "event-list" .EventGroup.RightNow }}
-            {{end}}
+      {{if .HaveUpcoming}}
+        <h2>Upcoming Events</h2>
+        <hr/>
+        {{ template "event-list" .EventGroup.Upcoming }}
+      {{end}}
 
-            {{if .HaveUpcoming}}
-              <h2>Upcoming</h2>
-              <hr/>
-            {{ template "event-list" .EventGroup.Upcoming }}
-
-            {{end}}
-
-          <h2>Past events</h2>
-          <hr/>
-          {{ template "event-list" .EventGroup.Past }}
-
-        </div>
+      <h2>Past Events</h2>
+      <hr/>
+      {{ template "event-list" .EventGroup.Past }}
+    </div>
   </section>
 
 {{end}}

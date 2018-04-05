@@ -27,11 +27,11 @@ type Event struct {
 }
 
 func (e *Event) GetInterestLine() string {
+	totalCount := e.AttendingCount + e.InterestedCount
 	if e.StartTime.After(time.Now()) || e.EndTime.After(time.Now()) {
-		totalCount := e.AttendingCount + e.InterestedCount
 		return fmt.Sprintf("%d going or interested", totalCount)
 	}
-	return fmt.Sprintf("%d attended", e.AttendingCount)
+	return fmt.Sprintf("%d went or were interested", totalCount)
 }
 
 func (e *Event) GetShortDate() string {
@@ -182,7 +182,7 @@ func getEvents() ([]*Event, error) {
 }
 
 type EventGroup struct {
-	RightNow []*Event
+	Ongoing  []*Event
 	Upcoming []*Event
 	Past     []*Event
 }
@@ -221,7 +221,7 @@ func GroupEvents() (*EventGroup, error) {
 	}
 
 	eventGroup := &EventGroup{}
-	eventGroup.RightNow = make([]*Event, 0)
+	eventGroup.Ongoing = make([]*Event, 0)
 	eventGroup.Upcoming = make([]*Event, 0)
 	eventGroup.Past = make([]*Event, 0)
 
@@ -232,7 +232,7 @@ func GroupEvents() (*EventGroup, error) {
 		rightNow := event.StartTime.Before(now) && event.EndTime.After(now)
 
 		if rightNow {
-			eventGroup.RightNow = append(eventGroup.RightNow, event)
+			eventGroup.Ongoing = append(eventGroup.Ongoing, event)
 		} else if upcoming {
 			eventGroup.Upcoming = append(eventGroup.Upcoming, event)
 		} else {
