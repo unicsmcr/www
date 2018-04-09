@@ -42,7 +42,7 @@ section {
         margin: 0;
     }
 
-    section > h2 {
+    section  h2 {
         font-size: 24px;
         margin: 20px 0;
     }
@@ -167,7 +167,7 @@ footer {
             font-size: 20px;
         }
 
-        section > h2 {
+        section h2 {
             font-size: 17px;
             margin: 18px 0 4px 0;
         }
