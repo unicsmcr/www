@@ -39,8 +39,7 @@ RECAPTCHA_SITE_KEY="your reCAPTCHA site key"
 RECAPTCHA_SECRET_KEY="your reCAPTCHA secret key"
 MYSQL_CONNECTION_STRING="your MySQL connection string"
 SENDGRID_API_KEY="your SendGrid API key"
-FB_APP_ID="your Facebook app ID"
-FB_SECRET="your Facebook secret key"
+FB_USER_TOKEN="your Facebook user token"
 ```
 
 #### Starting the Website

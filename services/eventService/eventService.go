@@ -59,7 +59,7 @@ var accessToken string
 var eventsCache *cache.Cache
 
 func init() {
-	if !config.CheckHaveenv("FB_APP_ID", "FB_SECRET") {
+	if !config.CheckHaveenv("FB_USER_TOKEN") {
 		return
 	}
 
@@ -71,7 +71,7 @@ func init() {
 
 // getAccessToken gets a suitable Facebook GraphAPI access token.
 func getAccessToken() string {
-	accessToken := fmt.Sprintf("%s|%s", os.Getenv("FB_APP_ID"), os.Getenv("FB_SECRET"))
+	accessToken := fmt.Sprintf("%s", os.Getenv("FB_USER_TOKEN"))
 
 	return accessToken
 }
