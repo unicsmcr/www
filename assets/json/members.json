@@ -1,53 +1,43 @@
 {
     "Current": [
         {
-            "id": "robert-ihnatisin",
-            "name": "Robert Ihnatisin",
+            "id": "luke-beamish",
+            "name": "Luke Beamish",
             "description": "President"
         },
         {
-            "id": "catalina-maria-vlad",
-            "name": "Catalina Maria Vlad",
+            "id": "aayush-chadha",
+            "name": "Aayush Chadha",
             "description": "VP & Treasurer"
         },
         {
-            "id": "hendrik-molder",
-            "name": "Hendrik Molder",
+            "id": "ioana-dumitrescu",
+            "name": "Ioana Dumitrescu",
             "description": "Event Director"
-        },
-        {
-            "id": "raul-ignatus",
-            "name": "Raul Ignatus",
-            "description": "Dev Officer"
-        },
-        {
-            "id": "alex-dumitru",
-            "name": "Alex Dumitru",
-            "description": "Dev Member"
-        },
-        {
-            "id": "ivan-donat-pupovac",
-            "name": "Ivan Donat Pupovac",
-            "description": "Dev Member"
         },
         {
             "id": "kristijonas-zalys",
             "name": "Kristijonas Zalys",
-            "description": "Dev Member"
+            "description": "Dev Officer"
         },
         {
-            "id": "bogdan-facaianu",
-            "name": "Bogdan Facaianu",
+            "id": "surya-prasad",
+            "name": "Surya Prasad",
+            "description": "PR Officer"
+        },
+        {
+            "id": "sara-cabru",
+            "name": "Sara Cabru",
             "description": "Graphics Officer"
         },
         {
-            "id": "ana-simon",
-            "name": "Ana Simon",
+            "id": "catalina-maria-vlad",
+            "name": "Catalina Maria Vlad",
             "description": "Hackathon Director"
         },
         {
-            "id": "teo-stoleru",
-            "name": "Teo Stoleru",
+            "id": "igor-wodiany",
+            "name": "Igor Wodiany",
             "description": "Hackathon Director"
         }
     ],
@@ -63,6 +53,16 @@
             "description": "President"
         },
         {
+            "id": "robert-ihnatisin",
+            "name": "Robert Ihnatisin",
+            "description": "President"
+        },
+        {
+            "id": "hendrik-molder",
+            "name": "Hendrik Molder",
+            "description": "Event Director"
+        },
+        {
             "id": "miruna-pislar",
             "name": "Miruna Pislar",
             "description": "Event Director"
@@ -70,6 +70,11 @@
         {
             "id": "andrei-muntean",
             "name": "Andrei Muntean",
+            "description": "Dev Officer"
+        },
+        {
+            "id": "raul-ignatus",
+            "name": "Raul Ignatus",
             "description": "Dev Officer"
         },
         {
@@ -81,6 +86,11 @@
             "id": "martina-catizone",
             "name": "Martina Catizone",
             "description": "Graphics Officer"
+        },
+        {
+            "id": "ana-simon",
+            "name": "Ana Simon",
+            "description": "Hackathon Director"
         },
         {
             "id": "cornelia-secelean",
@@ -98,13 +108,18 @@
             "description": "Hackathon Director"
         },
         {
-            "id": "ben-possible",
-            "name": "Ben Possible",
+            "id": "teo-stoleru",
+            "name": "Teo Stoleru",
+            "description": "Hackathon Director"
+        },
+        {
+            "id": "andrei-belcin",
+            "name": "Andrei Belcin",
             "description": "Hackathon Organizer"
         },
         {
-            "id": "igor-wodiany",
-            "name": "Igor Wodiany",
+            "id": "ben-possible",
+            "name": "Ben Possible",
             "description": "Hackathon Organizer"
         },
         {
