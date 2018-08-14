@@ -15,8 +15,9 @@ type member struct {
 }
 
 var members struct {
-	Current []member
-	Past    []member
+	Current        []member
+	PastPresidents []member
+	PastOther      []member
 }
 
 func init() {

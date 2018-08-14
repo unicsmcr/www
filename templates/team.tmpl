@@ -1,6 +1,10 @@
 {{ define "head" }}
   <title>Team | HackSoc</title>
   <link rel="stylesheet" type="text/css" href="assets/css/team.min.css" />
+  <link rel="stylesheet" type="text/css" href="assets/css/external/bootstrap.min.css" />
+  <script src="assets/js/external/jquery.slim.min.js"></script>
+  <script src="assets/js/external/popper.min.js"></script>
+  <script src="assets/js/external/bootstrap.min.js"></script>
 {{ end }}
 
 
@@ -20,7 +24,20 @@
     <div class="separator"></div>
     <h1>Hall of Fame</h1>
     <div class="members">
-      {{ range .Past }}
+      {{ range .PastPresidents }}
+        <div class="member" style="background-image: url('assets/images/team/{{ .ID }}.small.jpg')">
+          <div>
+            <h2>{{ .Name }}</h2>
+            <p>{{ .Description }}</p>
+          </div>
+        </div>
+      {{ end }}
+    </div>
+    <button class="btn btn-outline-dark" type="button" data-toggle="collapse" data-target="#otherMembers" aria-expanded="false" aria-controls="otherMembers">
+      See More
+    </button>
+    <div class="members collapse" id="otherMembers">
+      {{ range .PastOther }}
         <div class="member" style="background-image: url('assets/images/team/{{ .ID }}.small.jpg')">
           <div>
             <h2>{{ .Name }}</h2>

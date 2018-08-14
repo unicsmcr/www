@@ -41,22 +41,34 @@
             "description": "Hackathon Director"
         }
     ],
-    "Past": [
+    "PastPresidents": [
+        {
+            "id": "mihai-bujanca",
+            "name": "Mihai Bujanca",
+            "description": "Co-Founder"
+        },
         {
             "id": "sami-alabed",
             "name": "Sami Alabed",
-            "description": "Eternal Leader"
+            "description": "Co-Founder"
         },
         {
-            "id": "cristian-bodnar",
-            "name": "Cristian Bodnar",
-            "description": "President"
+            "id": "teo-stoleru",
+            "name": "Teo Stoleru",
+            "description": "President 2017-2018"
         },
         {
             "id": "robert-ihnatisin",
             "name": "Robert Ihnatisin",
-            "description": "President"
+            "description": "President 2017-2018"
         },
+        {
+            "id": "cristian-bodnar",
+            "name": "Cristian Bodnar",
+            "description": "President 2016-2017"
+        }
+    ],
+    "PastOther": [
         {
             "id": "hendrik-molder",
             "name": "Hendrik Molder",
@@ -103,16 +115,6 @@
             "description": "Hackathon Director"
         },
         {
-            "id": "mihai-bujanca",
-            "name": "Mihai Bujanca",
-            "description": "Hackathon Director"
-        },
-        {
-            "id": "teo-stoleru",
-            "name": "Teo Stoleru",
-            "description": "Hackathon Director"
-        },
-        {
             "id": "andrei-belcin",
             "name": "Andrei Belcin",
             "description": "Hackathon Organizer"
@@ -124,7 +126,7 @@
         },
         {
             "id": "julio-evega",
-            "name": "Julio EVega",
+            "name": "Julio Evega",
             "description": "Hackathon Organizer"
         },
         {

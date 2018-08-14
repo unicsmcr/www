@@ -74,7 +74,7 @@
     font-size: 15px;
     margin: 0;
 
-    font-weight: 400;
+    font-weight: 400 !important;
     padding: 10px 0px 2.5px 10px;
 }
 

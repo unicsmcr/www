@@ -1,23 +1,23 @@
 body {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 300;
+    font-family: 'Open Sans', sans-serif !important;
+    font-weight: 300 !important;
     margin: 0;
     background-color: #000;
 }
 
 
 a {
-    text-decoration: none;
+    text-decoration: none !important;
 }
 
 
 h1 {
-    font-weight: 400;
+    font-weight: 400 !important;
 }
 
 
 h2, h3, h4, h5, h6, p {
-    font-weight: 300;
+    font-weight: 300 !important;
 }
 
 
@@ -27,7 +27,7 @@ ul {
 
 
 input {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Open Sans', sans-serif !important;
 }
 
 
